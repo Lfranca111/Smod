@@ -1,159 +1,121 @@
 package com.schnurritv.sexmod;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.Enchantments;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSource;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.PotionTypes;
+import net.minecraft.item.Item;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionHelper;
+import net.minecraft.potion.PotionType;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 @EventBusSubscriber
-public class ba {
+public class ba extends Potion {
+  public static final Potion b = new ba("horny potion", false, 16736968, 0, 0);
+  
+  public static final PotionType a = (PotionType)(new PotionType("horny_potion", new PotionEffect[] { new PotionEffect(b, 3600), new PotionEffect(MobEffects.field_76431_k, 200, 1) })).setRegistryName("horny_potion");
+  
   public ba() {
-    a.a(EntityEquipmentSlot.HEAD, ItemArmor.ArmorMaterial.LEATHER, 1, 0);
-    a.a(EntityEquipmentSlot.HEAD, ItemArmor.ArmorMaterial.GOLD, 2, 0);
-    a.a(EntityEquipmentSlot.HEAD, ItemArmor.ArmorMaterial.CHAIN, 2, 0);
-    a.a(EntityEquipmentSlot.HEAD, ItemArmor.ArmorMaterial.IRON, 2, 0);
-    a.a(EntityEquipmentSlot.HEAD, ItemArmor.ArmorMaterial.DIAMOND, 3, 3);
-    a.a(EntityEquipmentSlot.CHEST, ItemArmor.ArmorMaterial.LEATHER, 3, 0);
-    a.a(EntityEquipmentSlot.CHEST, ItemArmor.ArmorMaterial.GOLD, 5, 0);
-    a.a(EntityEquipmentSlot.CHEST, ItemArmor.ArmorMaterial.CHAIN, 5, 0);
-    a.a(EntityEquipmentSlot.CHEST, ItemArmor.ArmorMaterial.IRON, 6, 0);
-    a.a(EntityEquipmentSlot.CHEST, ItemArmor.ArmorMaterial.DIAMOND, 8, 3);
-    a.a(EntityEquipmentSlot.LEGS, ItemArmor.ArmorMaterial.LEATHER, 2, 0);
-    a.a(EntityEquipmentSlot.LEGS, ItemArmor.ArmorMaterial.GOLD, 3, 0);
-    a.a(EntityEquipmentSlot.LEGS, ItemArmor.ArmorMaterial.CHAIN, 4, 0);
-    a.a(EntityEquipmentSlot.LEGS, ItemArmor.ArmorMaterial.IRON, 5, 0);
-    a.a(EntityEquipmentSlot.LEGS, ItemArmor.ArmorMaterial.DIAMOND, 6, 3);
-    a.a(EntityEquipmentSlot.FEET, ItemArmor.ArmorMaterial.LEATHER, 1, 0);
-    a.a(EntityEquipmentSlot.FEET, ItemArmor.ArmorMaterial.GOLD, 1, 0);
-    a.a(EntityEquipmentSlot.FEET, ItemArmor.ArmorMaterial.CHAIN, 1, 0);
-    a.a(EntityEquipmentSlot.FEET, ItemArmor.ArmorMaterial.IRON, 2, 0);
-    a.a(EntityEquipmentSlot.FEET, ItemArmor.ArmorMaterial.DIAMOND, 3, 3);
+    super(false, 0);
+  }
+  
+  public ba(String paramString, boolean paramBoolean, int paramInt1, int paramInt2, int paramInt3) {
+    super(paramBoolean, paramInt1);
+    func_76390_b(paramString);
+    func_76399_b(paramInt2, paramInt3);
+    setRegistryName(new ResourceLocation("sexmod:" + paramString));
+  }
+  
+  public static void a() {
+    ForgeRegistries.POTIONS.register((IForgeRegistryEntry)b);
+    ForgeRegistries.POTION_TYPES.register((IForgeRegistryEntry)a);
+    PotionHelper.func_193357_a(PotionTypes.field_185231_c, Item.func_150898_a((Block)Blocks.field_150328_O), a);
   }
   
   @SubscribeEvent
-  public void a(LivingDamageEvent paramLivingDamageEvent) {
+  public void a(TickEvent.PlayerTickEvent paramPlayerTickEvent) {
+    EntityPlayer entityPlayer = paramPlayerTickEvent.player;
+    PotionEffect potionEffect = entityPlayer.func_70660_b(b);
     try {
-      if (!(paramLivingDamageEvent.getEntity() instanceof S))
+      if (entityPlayer.field_70170_p.field_72995_K)
         return; 
-    } catch (NullPointerException nullPointerException) {
+    } catch (RuntimeException runtimeException) {
       throw a(null);
     } 
-    S s = (S)paramLivingDamageEvent.getEntity();
-    ItemStack[] arrayOfItemStack = { s.H.getStackInSlot(2), s.H.getStackInSlot(3), s.H.getStackInSlot(4), s.H.getStackInSlot(5) };
-    ArrayList<ItemArmor> arrayList = new ArrayList();
-    ArrayList<ItemStack> arrayList1 = new ArrayList();
-    for (ItemStack itemStack : arrayOfItemStack) {
+    try {
+      if (potionEffect == null)
+        return; 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    try {
+      if (potionEffect.func_76459_b() > 3500)
+        return; 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    entityPlayer.func_184589_d(b);
+    aV.a.sendTo(new i(entityPlayer), (EntityPlayerMP)entityPlayer);
+  }
+  
+  @SubscribeEvent
+  public void a(LivingEvent.LivingUpdateEvent paramLivingUpdateEvent) {
+    if (paramLivingUpdateEvent.getEntity() instanceof EntityVillager) {
+      EntityVillager entityVillager = (EntityVillager)paramLivingUpdateEvent.getEntity();
       try {
-        if (itemStack.func_77973_b() instanceof ItemArmor) {
-          arrayList.add((ItemArmor)itemStack.func_77973_b());
-          arrayList1.add(itemStack);
+        if (entityVillager.func_70644_a(b)) {
+          entityVillager.field_70714_bg.func_75776_a(2, new az(entityVillager));
+          entityVillager.func_184589_d(b);
         } 
-      } catch (NullPointerException nullPointerException) {
+      } catch (RuntimeException runtimeException) {
         throw a(null);
       } 
     } 
     try {
-      if (arrayList.size() == 0)
+      if (!(paramLivingUpdateEvent.getEntity() instanceof EntityAnimal))
         return; 
-    } catch (NullPointerException nullPointerException) {
+    } catch (RuntimeException runtimeException) {
       throw a(null);
     } 
-    DamageSource damageSource = paramLivingDamageEvent.getSource();
-    int i = 0;
-    int j = 0;
-    if (!damageSource.func_76363_c())
-      for (ItemArmor itemArmor : arrayList) {
-        i += a.b(itemArmor.field_77881_a, itemArmor.func_82812_d());
-        j += a.a(itemArmor.field_77881_a, itemArmor.func_82812_d());
-      }  
-    float f1 = paramLivingDamageEvent.getAmount();
-    f1 *= 1.0F - Math.min(20.0F, Math.max(i / 5.0F, i - 4.0F * f1 / (j + 8.0F))) / 25.0F;
-    float f2 = 0.0F;
-    float f3 = f1;
-    for (ItemStack itemStack : arrayList1) {
-      int k = EnchantmentHelper.func_77506_a(Enchantments.field_180310_c, itemStack);
-      f1 -= k * 0.04F * f1;
-      int m = EnchantmentHelper.func_77506_a(Enchantments.field_92091_k, itemStack);
-      try {
-      
-      } catch (NullPointerException nullPointerException) {
-        throw a(null);
-      } 
-      f2 += (bY.b.nextFloat() < 0.15F * m) ? (bY.b.nextFloat() * 4.0F + 1.0F) : 0.0F;
-      f2 = Math.min(4.0F, f2);
-      if (damageSource.func_76347_k()) {
-        int n = EnchantmentHelper.func_77506_a(Enchantments.field_77329_d, itemStack);
-        f1 -= n * 0.08F * f1;
-      } 
-      if (damageSource.func_94541_c()) {
-        int n = EnchantmentHelper.func_77506_a(Enchantments.field_185297_d, itemStack);
-        f1 -= n * 0.08F * f1;
-      } 
-      if (damageSource.field_76373_n.equals("fall")) {
-        int n = EnchantmentHelper.func_77506_a(Enchantments.field_180309_e, itemStack);
-        f1 -= n * 0.12F * f1;
-      } 
-      if (damageSource.func_76352_a()) {
-        int n = EnchantmentHelper.func_77506_a(Enchantments.field_180308_g, itemStack);
-        f1 -= n * 0.08F * f1;
-      } 
-    } 
+    EntityAnimal entityAnimal = (EntityAnimal)paramLivingUpdateEvent.getEntity();
     try {
-      if (f2 > 0.0F && damageSource instanceof EntityDamageSource) {
-        EntityDamageSource entityDamageSource = (EntityDamageSource)damageSource;
+      if (entityAnimal.func_70644_a(b)) {
         try {
-          if (entityDamageSource.func_76346_g() != null)
-            entityDamageSource.func_76346_g().func_70097_a(DamageSource.func_92087_a((Entity)s), f2); 
-        } catch (NullPointerException nullPointerException) {
+          if (entityAnimal.func_70874_b() >= 0) {
+            entityAnimal.func_70873_a(0);
+            entityAnimal.func_70875_t();
+            entityAnimal.func_146082_f(entityAnimal.field_70170_p.func_72890_a((Entity)entityAnimal, 30.0D));
+          } 
+        } catch (RuntimeException runtimeException) {
           throw a(null);
         } 
+        entityAnimal.func_184589_d(b);
       } 
-    } catch (NullPointerException nullPointerException) {
+    } catch (RuntimeException runtimeException) {
       throw a(null);
     } 
-    paramLivingDamageEvent.setAmount(f1);
   }
   
-  private static NullPointerException a(NullPointerException paramNullPointerException) {
-    return paramNullPointerException;
-  }
-  
-  static class a {
-    public static HashMap<String, Integer[]> a = (HashMap)new HashMap<>();
-    
-    public static int b(EntityEquipmentSlot param1EntityEquipmentSlot, ItemArmor.ArmorMaterial param1ArmorMaterial) {
-      try {
-        return ((Integer[])a.get(param1EntityEquipmentSlot.toString() + param1ArmorMaterial.toString()))[0].intValue();
-      } catch (NullPointerException nullPointerException) {
-        return 3;
-      } 
-    }
-    
-    public static int a(EntityEquipmentSlot param1EntityEquipmentSlot, ItemArmor.ArmorMaterial param1ArmorMaterial) {
-      try {
-        return ((Integer[])a.get(param1EntityEquipmentSlot.toString() + param1ArmorMaterial.toString()))[1].intValue();
-      } catch (NullPointerException nullPointerException) {
-        return 0;
-      } 
-    }
-    
-    public static void a(EntityEquipmentSlot param1EntityEquipmentSlot, ItemArmor.ArmorMaterial param1ArmorMaterial, int param1Int1, int param1Int2) {
-      a.put(param1EntityEquipmentSlot.toString() + param1ArmorMaterial.toString(), new Integer[] { Integer.valueOf(param1Int1), Integer.valueOf(param1Int2) });
-    }
+  private static RuntimeException a(RuntimeException paramRuntimeException) {
+    return paramRuntimeException;
   }
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\ba.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\ba.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

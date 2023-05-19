@@ -1,78 +1,58 @@
 package com.schnurritv.sexmod;
 
-public enum n {
-  JENNY((Class)aX.class, 177013, (Class)ac.class, 12388645),
-  ELLIE((Class)ae.class, 228922, (Class)aP.class, 46348348),
-  BIA((Class)T.class, 230053, (Class)X.class, 65456415),
-  SLIME((Class)aF.class, 168597, (Class)a2.class, 54816432),
-  BEE((Class)aO.class, 4663354, (Class)W.class, 48648638),
-  ALLIE((Class)R.class, 5614613, (Class)V.class, 64867483),
-  LUNA((Class)aI.class, 6816463, (Class)ar.class, 681234824),
-  KOBOLD((Class)aD.class, 5648456),
-  GOBLIN((Class)ag.class, 4567275);
+import java.util.List;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+public class n {
+  static final int a = 3;
   
-  public final int npcID;
-  
-  public final int playerID;
-  
-  public final Class<? extends Q> npcClass;
-  
-  public final Class<? extends U> playerClass;
-  
-  public final boolean isNpcOnly;
-  
-  public final int editorID;
-  
-  n(Class<? extends Q> paramClass, int paramInt1, Class<? extends U> paramClass1, int paramInt2) {
-    this.npcID = paramInt1;
-    this.playerID = paramInt2;
-    this.npcClass = paramClass;
-    this.playerClass = paramClass1;
-    this.isNpcOnly = false;
-    this.editorID = bY.h++;
-  }
-  
-  n(Class<? extends Q> paramClass, int paramInt1) {
-    this.npcID = paramInt1;
-    this.npcClass = paramClass;
-    this.isNpcOnly = true;
-    this.editorID = bY.h++;
-    this.playerClass = null;
-    this.playerID = 0;
-  }
-  
-  public static n a(Q paramQ) {
+  @SubscribeEvent
+  public void a(BlockEvent.BreakEvent paramBreakEvent) {
+    Block block = paramBreakEvent.getState().func_177230_c();
     try {
-      if (paramQ == null)
-        return null; 
-    } catch (NullPointerException nullPointerException) {
+      if (block != Blocks.field_150324_C)
+        return; 
+    } catch (RuntimeException runtimeException) {
       throw a(null);
     } 
-    Class<?> clazz = paramQ.getClass();
-    for (n n1 : values()) {
+    BlockPos blockPos = paramBreakEvent.getPos();
+    AxisAlignedBB axisAlignedBB = new AxisAlignedBB((blockPos.func_177958_n() - 3), (blockPos.func_177956_o() - 3), (blockPos.func_177952_p() - 3), (blockPos.func_177958_n() + 3), (blockPos.func_177956_o() + 3), (blockPos.func_177952_p() + 3));
+    List list = paramBreakEvent.getWorld().func_72872_a(bS.class, axisAlignedBB);
+    boolean bool = false;
+    for (bS bS : list) {
       try {
-        if (clazz.equals(n1.npcClass))
-          return n1; 
-      } catch (NullPointerException nullPointerException) {
-        throw a(null);
-      } 
-      try {
-        if (clazz.equals(n1.playerClass))
-          return n1; 
-      } catch (NullPointerException nullPointerException) {
+        if (!bS.field_70128_L && ((Boolean)bS.func_184212_Q().func_187225_a(bS.z)).booleanValue()) {
+          bool = true;
+          break;
+        } 
+      } catch (RuntimeException runtimeException) {
         throw a(null);
       } 
     } 
-    return null;
+    try {
+      if (!bool)
+        return; 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    paramBreakEvent.getPlayer().func_146105_b((ITextComponent)new TextComponentString("this bed is currently used by a girl.. pls don't disturb okay? ... you are kinda mean rn"), true);
+    paramBreakEvent.setCanceled(true);
   }
   
-  private static NullPointerException a(NullPointerException paramNullPointerException) {
-    return paramNullPointerException;
+  private static RuntimeException a(RuntimeException paramRuntimeException) {
+    return paramRuntimeException;
   }
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\n.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\n.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

@@ -1,80 +1,206 @@
 package com.schnurritv.sexmod;
 
+import java.util.HashSet;
+import javax.vecmath.Vector3f;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
-import software.bernie.geckolib3.geo.render.built.GeoModel;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.ItemStack;
+import software.bernie.geckolib3.geo.render.built.GeoBone;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
-public class bw extends bi {
-  public bw(RenderManager paramRenderManager, AnimatedGeoModel<T> paramAnimatedGeoModel, double paramDouble) {
-    super(paramRenderManager, paramAnimatedGeoModel, paramDouble);
+public class bw extends bm {
+  Vector3f J = new Vector3f(0.0F, 0.0F, 0.0F);
+  
+  Vector3f G = new Vector3f(0.0F, 0.0F, 0.0F);
+  
+  Vector3f H = new Vector3f(0.0F, 0.0F, 0.0F);
+  
+  Vector3f K = new Vector3f(0.0F, 0.0F, 0.0F);
+  
+  Vector3f I = new Vector3f(0.0F, 0.0F, 0.0F);
+  
+  Vector3f F = new Vector3f(0.0F, 0.0F, 0.0F);
+  
+  Vector3f E = new Vector3f(0.0F, 0.0F, 0.0F);
+  
+  public bw(RenderManager paramRenderManager, AnimatedGeoModel paramAnimatedGeoModel) {
+    super(paramRenderManager, paramAnimatedGeoModel);
   }
   
-  public void a(GeoModel paramGeoModel, Q paramQ, float paramFloat1, float paramFloat2, float paramFloat3, float paramFloat4, float paramFloat5) {
-    R r = (R)paramQ;
+  protected void c() {
+    GlStateManager.func_179109_b(0.0F, -1.25F, 0.0F);
+    GlStateManager.func_179152_a(0.8F, 0.8F, 0.8F);
+  }
+  
+  protected void a(String paramString, GeoBone paramGeoBone) {
     try {
-      if (paramQ.h() == b1.NULL)
+      if ("slime".equals(paramString)) {
+        this.H = new Vector3f(paramGeoBone.getRotationX(), paramGeoBone.getRotationY(), paramGeoBone.getRotationZ());
+        this.J = new Vector3f(paramGeoBone.getScaleX(), paramGeoBone.getScaleY(), paramGeoBone.getScaleZ());
+        this.G = new Vector3f(paramGeoBone.getPositionX(), paramGeoBone.getPositionY(), paramGeoBone.getPositionZ());
+      } 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    try {
+      if ("upperBody".equals(paramString))
+        this.F = new Vector3f(paramGeoBone.getRotationX(), paramGeoBone.getRotationY(), paramGeoBone.getRotationZ()); 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    try {
+      if ("torso".equals(paramString))
+        this.K = new Vector3f(paramGeoBone.getRotationX(), paramGeoBone.getRotationY(), paramGeoBone.getRotationZ()); 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    try {
+      if ("head".equals(paramString))
+        this.E = new Vector3f(paramGeoBone.getRotationX(), paramGeoBone.getRotationY(), paramGeoBone.getRotationZ()); 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    try {
+      if ("boobs".equals(paramString))
+        this.I = new Vector3f(paramGeoBone.getRotationX(), paramGeoBone.getRotationY(), paramGeoBone.getRotationZ()); 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    try {
+      if ("figure".equals(paramString)) {
+        paramGeoBone.setRotationX(this.H.x);
+        paramGeoBone.setRotationY(this.H.y);
+        paramGeoBone.setRotationZ(this.H.z);
+        paramGeoBone.setScaleX(this.J.x);
+        paramGeoBone.setScaleY(this.J.y);
+        paramGeoBone.setScaleZ(this.J.z);
+        paramGeoBone.setPositionX(this.G.x);
+        paramGeoBone.setPositionY(this.G.y);
+        paramGeoBone.setPositionZ(this.G.z);
+      } 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    try {
+      if ("dress".equals(paramString)) {
+        paramGeoBone.setRotationX(this.F.x);
+        paramGeoBone.setRotationY(this.F.y);
+        paramGeoBone.setRotationZ(this.F.z);
+      } 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    try {
+      if ("hat".equals(paramString)) {
+        paramGeoBone.setRotationX(this.E.x);
+        paramGeoBone.setRotationY(this.E.y);
+        paramGeoBone.setRotationZ(this.E.z);
+      } 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    try {
+      if ("boobsSlime".equals(paramString)) {
+        paramGeoBone.setRotationX(this.I.x);
+        paramGeoBone.setRotationY(this.I.y);
+        paramGeoBone.setRotationZ(this.I.z);
+      } 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+  }
+  
+  protected void a(boolean paramBoolean) {
+    try {
+      super.a(paramBoolean);
+      if (paramBoolean) {
+        GlStateManager.func_179109_b(0.15F, 0.0F, 0.0F);
+      } else {
+        GlStateManager.func_179137_b(-0.02D, 0.0D, 0.0D);
+        GlStateManager.func_179114_b(90.0F, 1.0F, 0.0F, 0.0F);
+      } 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+  }
+  
+  protected HashSet<String> d() {
+    HashSet<String> hashSet = super.d();
+    hashSet.add("figure");
+    return hashSet;
+  }
+  
+  protected void a(boolean paramBoolean1, boolean paramBoolean2) {
+    try {
+      super.a(paramBoolean1, paramBoolean2);
+      if (paramBoolean1)
         try {
-          if (!paramQ.y)
-            return; 
-        } catch (NullPointerException nullPointerException) {
+          if (!paramBoolean2) {
+            GlStateManager.func_179137_b(-0.025D, -0.025D, 0.0D);
+            return;
+          } 
+        } catch (RuntimeException runtimeException) {
           throw a(null);
         }  
-    } catch (NullPointerException nullPointerException) {
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    try {
+      if (!paramBoolean1)
+        try {
+          if (paramBoolean2) {
+            GlStateManager.func_179114_b(120.0F, 0.0F, 1.0F, 0.0F);
+            return;
+          } 
+        } catch (RuntimeException runtimeException) {
+          throw a(null);
+        }  
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    try {
+      if (!paramBoolean1)
+        try {
+          if (!paramBoolean2) {
+            GlStateManager.func_179137_b(0.0D, 0.4D, -0.1D);
+            GlStateManager.func_179114_b(-30.0F, 1.0F, 0.0F, 0.0F);
+          } 
+        } catch (RuntimeException runtimeException) {
+          throw a(null);
+        }  
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+  }
+  
+  protected void a(boolean paramBoolean, ItemStack paramItemStack) {
+    try {
+      super.a(paramBoolean, paramItemStack);
+      switch (a.a[paramItemStack.func_77973_b().func_77661_b(paramItemStack).ordinal()]) {
+        case 1:
+        case 2:
+          return;
+      } 
+    } catch (RuntimeException runtimeException) {
       throw a(null);
     } 
     try {
     
-    } catch (NullPointerException nullPointerException) {
+    } catch (RuntimeException runtimeException) {
       throw a(null);
     } 
-    r.M = (r.M == 1.0F) ? r.M : (r.M - 0.01F);
-    paramFloat5 = r.M;
-    try {
-      GlStateManager.func_179152_a(paramFloat5, paramFloat5, paramFloat5);
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    GlStateManager.func_179109_b(0.0F, (paramFloat5 == 1.0F) ? 0.0F : (3.0F - paramFloat5 * 3.0F), 0.0F);
-    super.a(paramGeoModel, paramQ, paramFloat1, paramFloat2, paramFloat3, paramFloat4, paramFloat5);
+    GlStateManager.func_179114_b(paramBoolean ? 30.0F : 135.0F, 1.0F, 0.0F, 0.0F);
+    GlStateManager.func_179137_b(0.0D, 0.05D, -0.05D);
   }
   
-  protected void a(double paramDouble1, double paramDouble2, double paramDouble3) {
-    try {
-      if (this.k.h() == b1.NULL)
-        return; 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (((Q)this.k).y)
-        return; 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if ((this.k.h()).hideNameTag)
-        return; 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if ((this.i.func_175598_ae()).field_78734_h == null)
-        return; 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    func_147906_a((Entity)this.k, this.k.F(), paramDouble1, paramDouble2 + this.k.z(), paramDouble3, 300);
-  }
-  
-  private static NullPointerException a(NullPointerException paramNullPointerException) {
-    return paramNullPointerException;
+  private static RuntimeException a(RuntimeException paramRuntimeException) {
+    return paramRuntimeException;
   }
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\bw.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\bw.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

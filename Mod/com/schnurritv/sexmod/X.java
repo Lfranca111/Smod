@@ -1,27 +1,35 @@
 package com.schnurritv.sexmod;
 
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelBox;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
 
-public enum x {
-  LIGHT_GREEN(213, 239, 150),
-  MEDIUM_GREEN(189, 165, 91),
-  DARK_GREEN(160, 183, 135),
-  LIGHT_YELLOW(234, 176, 102),
-  LIGHT_BLUE(187, 203, 252);
+public class x extends ModelBase implements o {
+  public final ModelRenderer a = new ModelRenderer(this);
   
-  private final Vec3i b;
-  
-  x(int paramInt1, int paramInt2, int paramInt3) {
-    this.b = new Vec3i(paramInt1, paramInt2, paramInt3);
+  public x() {
+    this.a.func_78793_a(-5.0F, 2.5F, 0.0F);
+    this.a.field_78804_l.add(new ModelBox(this.a, 0, 0, -2.0F, -6.0F, 0.0F, 2, 6, 2, 0.0F, false));
   }
   
-  public Vec3i a() {
-    return this.b;
+  public void func_78088_a(Entity paramEntity, float paramFloat1, float paramFloat2, float paramFloat3, float paramFloat4, float paramFloat5, float paramFloat6) {
+    this.a.func_78785_a(paramFloat6);
+  }
+  
+  public void a(ModelRenderer paramModelRenderer, float paramFloat1, float paramFloat2, float paramFloat3) {
+    paramModelRenderer.field_78795_f = paramFloat1;
+    paramModelRenderer.field_78796_g = paramFloat2;
+    paramModelRenderer.field_78808_h = paramFloat3;
+  }
+  
+  public ModelRenderer a() {
+    return this.a;
   }
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\x.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\x.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

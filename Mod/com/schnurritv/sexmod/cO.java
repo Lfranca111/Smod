@@ -1,183 +1,112 @@
 package com.schnurritv.sexmod;
 
-import java.util.Map;
-import java.util.Objects;
-import javax.annotation.Nullable;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.enchantment.EnchantmentHelper;
+import io.netty.buffer.ByteBuf;
+import java.util.ArrayList;
+import java.util.UUID;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import software.bernie.geckolib3.geo.render.built.GeoBone;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
-import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
 
-public class cO extends bi {
-  float n;
+public class co implements IMessage {
+  boolean b;
   
-  public cO(RenderManager paramRenderManager, AnimatedGeoModel<T> paramAnimatedGeoModel, double paramDouble) {
-    super(paramRenderManager, paramAnimatedGeoModel, paramDouble);
+  UUID a;
+  
+  public co() {}
+  
+  public co(UUID paramUUID) {
+    this.a = paramUUID;
   }
   
-  protected ItemStack a(@Nullable ItemStack paramItemStack) {
-    ItemStack itemStack1;
-    ItemStack itemStack2;
-    Map map;
-    switch (a.a[this.k.h().ordinal()]) {
-      case 1:
-      case 2:
-        itemStack1 = ((aI)this.k).ar;
-        itemStack2 = (ItemStack)this.k.func_184212_Q().func_187225_a(aI.am);
-        try {
-          if (itemStack2.equals(ItemStack.field_190927_a))
-            return itemStack1; 
-        } catch (NullPointerException nullPointerException) {
-          throw a(null);
-        } 
-        map = EnchantmentHelper.func_82781_a(itemStack2);
-        EnchantmentHelper.func_82782_a(map, itemStack1);
-        this.k.func_184611_a(EnumHand.MAIN_HAND, itemStack1);
-        return itemStack1;
-    } 
-    return paramItemStack;
+  public void fromBytes(ByteBuf paramByteBuf) {
+    this.a = UUID.fromString(ByteBufUtils.readUTF8String(paramByteBuf));
+    this.b = true;
   }
   
-  boolean a() {
-    return ((Boolean)this.k.func_184212_Q().func_187225_a(Q.c)).booleanValue();
+  public void toBytes(ByteBuf paramByteBuf) {
+    ByteBufUtils.writeUTF8String(paramByteBuf, this.a.toString());
   }
   
-  protected void a(BufferBuilder paramBufferBuilder, String paramString, GeoBone paramGeoBone) {
-    try {
-      if (Minecraft.func_71410_x().func_147113_T())
-        return; 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    String str = paramString;
-    byte b = -1;
-    try {
-      switch (str.hashCode()) {
-        case 3198432:
-          if (str.equals("head"))
-            b = 0; 
-          break;
-        case 2120576361:
-          if (str.equals("backHair"))
-            b = 1; 
-          break;
-        case -1870254695:
-          if (str.equals("sideHairR"))
-            b = 2; 
-          break;
-        case -1870254701:
-          if (str.equals("sideHairL"))
-            b = 3; 
-          break;
-        case -345841663:
-          if (str.equals("frontHairL"))
-            b = 4; 
-          break;
-        case -345841657:
-          if (str.equals("frontHairR"))
-            b = 5; 
-          break;
-        case -1548738978:
-          if (str.equals("offhand"))
-            b = 6; 
-          break;
+  public static class a implements IMessageHandler<co, IMessage> {
+    public IMessage a(co param1co, MessageContext param1MessageContext) {
+      try {
+        if (param1co.b)
+          try {
+            if (param1MessageContext.side == Side.SERVER) {
+              FMLCommonHandler.instance().getMinecraftServerInstance().func_152344_a(() -> {
+                    ArrayList<bS> arrayList = bS.f(param1co.a);
+                    for (bS bS : arrayList) {
+                      try {
+                        if (bS.field_70170_p.field_72995_K)
+                          continue; 
+                      } catch (RuntimeException runtimeException) {
+                        throw a(null);
+                      } 
+                      try {
+                        if (bS.o() != m.THROW_PEARL) {
+                          bS.c(m.THROW_PEARL);
+                          bS.a((float)Math.atan2(bS.field_70161_v - bS.f.field_72449_c, bS.field_70165_t - bS.f.field_72450_a) * 57.29578F + 90.0F);
+                          bS.a(bS.func_174791_d());
+                          bS.func_184212_Q().func_187227_b(bS.z, Boolean.valueOf(true));
+                          bS.v = null;
+                          continue;
+                        } 
+                      } catch (RuntimeException runtimeException) {
+                        throw a(null);
+                      } 
+                      if (bS.v == null) {
+                        float f = (float)bS.func_174791_d().func_72438_d(bS.f);
+                        bS.v = new b(bS.field_70170_p, (EntityLivingBase)bS);
+                        bS.v.func_70186_c(bS.f.field_72450_a - bS.field_70165_t, bS.f.field_72448_b - bS.field_70163_u, bS.f.field_72449_c - bS.field_70161_v, Math.min(4.0F, f * 0.1F), 0.0F);
+                        bS.field_70170_p.func_72838_d((Entity)bS.v);
+                        continue;
+                      } 
+                      WorldServer worldServer = (WorldServer)bS.field_70170_p;
+                      byte b = 0;
+                      try {
+                        while (b < 32) {
+                          worldServer.func_180505_a(EnumParticleTypes.PORTAL, false, bS.field_70165_t, bS.field_70163_u + U.f.nextDouble() * 2.0D, bS.field_70161_v, 32, 0.2D, 0.2D, 0.2D, U.f.nextGaussian(), new int[0]);
+                          b++;
+                        } 
+                      } catch (RuntimeException runtimeException) {
+                        throw a(null);
+                      } 
+                      bS.func_70107_b(bS.f.field_72450_a, bS.f.field_72448_b, bS.f.field_72449_c);
+                      bS.v = null;
+                      bS.c(m.NULL);
+                      bS.func_184212_Q().func_187227_b(bS.z, Boolean.valueOf(false));
+                      bS.A();
+                    } 
+                  });
+              return null;
+            } 
+            System.out.println("received an invalid message @SendCompanionHome :(");
+            return null;
+          } catch (RuntimeException runtimeException) {
+            throw a(null);
+          }  
+      } catch (RuntimeException runtimeException) {
+        throw a(null);
       } 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      double d;
-      float f;
-      aI aI;
-      ItemStack itemStack;
-      switch (b) {
-        case 0:
-          this.n = paramGeoBone.getRotationX();
-          break;
-        case 1:
-          try {
-            if (a())
-              break; 
-          } catch (NullPointerException nullPointerException) {
-            throw a(null);
-          } 
-          d = (this.n / bZ.b(45.0F));
-          f = (float)bZ.b(0.0D, 0.75D, d);
-          paramGeoBone.setPositionZ(f);
-          paramGeoBone.setPositionY(f);
-          paramGeoBone.setRotationX(-this.n);
-          break;
-        case 2:
-        case 3:
-          try {
-            if (a())
-              break; 
-          } catch (NullPointerException nullPointerException) {
-            throw a(null);
-          } 
-          d = (this.n / bZ.b(45.0F));
-          f = (float)bZ.b(0.0D, 1.2999999523162842D, d);
-          paramGeoBone.setPositionZ(-f);
-          paramGeoBone.setPositionY(f);
-        case 4:
-        case 5:
-          try {
-            if (a())
-              break; 
-          } catch (NullPointerException nullPointerException) {
-            throw a(null);
-          } 
-          paramGeoBone.setRotationX(-this.n);
-          break;
-        case 6:
-          aI = (aI)this.k;
-          itemStack = (ItemStack)this.k.func_184212_Q().func_187225_a(aI.as);
-          try {
-            if (itemStack.equals(ItemStack.field_190927_a))
-              break; 
-          } catch (NullPointerException nullPointerException) {
-            throw a(null);
-          } 
-          try {
-            if (aI.ag != 1.0F)
-              break; 
-          } catch (NullPointerException nullPointerException) {
-            throw a(null);
-          } 
-          GlStateManager.func_179094_E();
-          Tessellator.func_178181_a().func_78381_a();
-          bE.a(IGeoRenderer.MATRIX_STACK, paramGeoBone);
-          GlStateManager.func_179114_b(90.0F, 1.0F, 0.0F, 0.0F);
-          GlStateManager.func_179152_a(aI.ap, aI.ap, aI.ap);
-          Minecraft.func_71410_x().func_175597_ag().func_178099_a((EntityLivingBase)this.k, itemStack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND);
-          bi.l.func_181668_a(7, DefaultVertexFormats.field_181712_l);
-          func_110776_a(Objects.<ResourceLocation>requireNonNull(getEntityTexture((EntityLivingBase)this.k)));
-          GlStateManager.func_179121_F();
-          break;
-      } 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-  }
-  
-  private static NullPointerException a(NullPointerException paramNullPointerException) {
-    return paramNullPointerException;
+      System.out.println("received an invalid message @SendCompanionHome :(");
+      return null;
+    }
+    
+    private static RuntimeException a(RuntimeException param1RuntimeException) {
+      return param1RuntimeException;
+    }
   }
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\cO.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\co.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

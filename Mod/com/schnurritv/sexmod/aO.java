@@ -1,150 +1,166 @@
 package com.schnurritv.sexmod;
 
-import io.netty.buffer.ByteBuf;
-import java.util.ArrayList;
-import java.util.UUID;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockDoor;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.pathfinding.Path;
+import net.minecraft.pathfinding.PathNavigateGround;
+import net.minecraft.pathfinding.PathPoint;
+import net.minecraft.util.math.BlockPos;
 
-public class ao implements IMessage {
-  boolean a = false;
+public class ao extends EntityAIBase {
+  protected EntityLiving f;
   
-  ItemStack[] d;
+  protected BlockPos c = BlockPos.field_177992_a;
   
-  UUID b;
+  protected BlockDoor g;
   
-  UUID c;
+  boolean e;
   
-  public ao() {}
+  float d;
   
-  public ao(UUID paramUUID1, UUID paramUUID2, ItemStack[] paramArrayOfItemStack) {
-    this.b = paramUUID1;
-    this.d = paramArrayOfItemStack;
-    this.c = paramUUID2;
+  float b;
+  
+  int a = 10;
+  
+  public ao(EntityLiving paramEntityLiving) {
+    this.f = paramEntityLiving;
+    if (!(paramEntityLiving.func_70661_as() instanceof PathNavigateGround))
+      throw new IllegalArgumentException("Unsupported mob type for DoorInteractGoal"); 
   }
   
-  public void fromBytes(ByteBuf paramByteBuf) {
-    this.b = UUID.fromString(ByteBufUtils.readUTF8String(paramByteBuf));
-    this.c = UUID.fromString(ByteBufUtils.readUTF8String(paramByteBuf));
-    int i = paramByteBuf.readInt();
-    this.d = new ItemStack[i];
-    byte b = 0;
-    try {
-      while (b < i) {
-        this.d[b] = ByteBufUtils.readItemStack(paramByteBuf);
-        b++;
+  public boolean func_75250_a() {
+    boolean bool = true;
+    for (byte b = -3; b < 5; b++) {
+      for (byte b1 = -3; b1 < 5; b1++) {
+        IBlockState iBlockState = this.f.field_70170_p.func_180495_p(this.f.func_180425_c().func_177982_a(b, 0, b1));
+        try {
+          if (iBlockState.func_177230_c() instanceof BlockDoor && iBlockState.func_185904_a() == Material.field_151575_d) {
+            bool = false;
+            break;
+          } 
+        } catch (IllegalArgumentException illegalArgumentException) {
+          throw a(null);
+        } 
       } 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    this.a = true;
-  }
-  
-  public void toBytes(ByteBuf paramByteBuf) {
-    ByteBufUtils.writeUTF8String(paramByteBuf, this.b.toString());
-    ByteBufUtils.writeUTF8String(paramByteBuf, this.c.toString());
-    paramByteBuf.writeInt(this.d.length);
-    for (ItemStack itemStack : this.d)
-      ByteBufUtils.writeItemStack(paramByteBuf, itemStack); 
-  }
-  
-  private static NullPointerException a(NullPointerException paramNullPointerException) {
-    return paramNullPointerException;
-  }
-  
-  public static class a implements IMessageHandler<ao, IMessage> {
-    public IMessage a(ao param1ao, MessageContext param1MessageContext) {
       try {
-        if (param1ao.a)
-          try {
-            if (param1MessageContext.side == Side.SERVER) {
-              FMLCommonHandler.instance().getMinecraftServerInstance().func_152344_a(() -> {
-                    ArrayList<Q> arrayList = Q.a(param1ao.b);
-                    for (Q q : arrayList) {
-                      try {
-                        if (q.field_70170_p.field_72995_K)
-                          continue; 
-                      } catch (NullPointerException nullPointerException) {
-                        throw a(null);
-                      } 
-                      EntityPlayer entityPlayer = q.field_70170_p.func_152378_a(param1ao.c);
-                      try {
-                        if (entityPlayer == null)
-                          return; 
-                      } catch (NullPointerException nullPointerException) {
-                        throw a(null);
-                      } 
-                      InventoryPlayer inventoryPlayer = entityPlayer.field_71071_by;
-                      byte b = 0;
-                      try {
-                        while (b < 36) {
-                          inventoryPlayer.func_70299_a(b, param1ao.d[b]);
-                          b++;
-                        } 
-                      } catch (NullPointerException nullPointerException) {
-                        throw a(null);
-                      } 
-                      if (q instanceof aI) {
-                        S s = (S)q;
-                        s.H.setStackInSlot(0, param1ao.d[36]);
-                        s.H.setStackInSlot(1, param1ao.d[37]);
-                        s.H.setStackInSlot(2, param1ao.d[38]);
-                        s.H.setStackInSlot(3, param1ao.d[39]);
-                        s.H.setStackInSlot(4, param1ao.d[40]);
-                        s.H.setStackInSlot(5, param1ao.d[41]);
-                        s.H.setStackInSlot(6, param1ao.d[42]);
-                      } else if (q instanceof S) {
-                        S s = (S)q;
-                        s.H.setStackInSlot(0, param1ao.d[36]);
-                        s.H.setStackInSlot(1, param1ao.d[37]);
-                        s.H.setStackInSlot(2, param1ao.d[38]);
-                        s.H.setStackInSlot(3, param1ao.d[39]);
-                        s.H.setStackInSlot(4, param1ao.d[40]);
-                        s.H.setStackInSlot(5, param1ao.d[41]);
-                      } 
-                      if (q instanceof a1) {
-                        a1 a1 = (a1)q;
-                        byte b1 = 0;
-                        try {
-                          while (b1 < 27) {
-                            a1.G.setStackInSlot(b1, param1ao.d[b1 + 36]);
-                            b1++;
-                          } 
-                        } catch (NullPointerException nullPointerException) {
-                          throw a(null);
-                        } 
-                      } 
-                    } 
-                  });
-              return null;
-            } 
-            System.out.println("received an invalid message @UploadInventoryToServer :(");
-            return null;
-          } catch (NullPointerException nullPointerException) {
-            throw a(null);
-          }  
-      } catch (NullPointerException nullPointerException) {
+        if (!bool)
+          break; 
+      } catch (IllegalArgumentException illegalArgumentException) {
         throw a(null);
       } 
-      System.out.println("received an invalid message @UploadInventoryToServer :(");
-      return null;
-    }
+    } 
+    try {
+      if (bool)
+        return false; 
+    } catch (IllegalArgumentException illegalArgumentException) {
+      throw a(null);
+    } 
+    PathNavigateGround pathNavigateGround = (PathNavigateGround)this.f.func_70661_as();
+    Path path = pathNavigateGround.func_75505_d();
+    try {
+      if (path != null)
+        try {
+          if (!path.func_75879_b() && pathNavigateGround.func_179686_g()) {
+            for (byte b1 = 0; b1 < Math.min(path.func_75873_e() + 2, path.func_75874_d()); b1++) {
+              PathPoint pathPoint = path.func_75877_a(b1);
+              try {
+                this.c = new BlockPos(pathPoint.field_75839_a, pathPoint.field_75837_b + 1, pathPoint.field_75838_c);
+                if (this.f.func_70092_e(this.c.func_177958_n(), this.f.field_70163_u, this.c.func_177952_p()) <= 2.25D)
+                  try {
+                    this.g = a(this.c);
+                    if (this.g != null)
+                      return true; 
+                  } catch (IllegalArgumentException illegalArgumentException) {
+                    throw a(null);
+                  }  
+              } catch (IllegalArgumentException illegalArgumentException) {
+                throw a(null);
+              } 
+            } 
+            try {
+              this.c = (new BlockPos((Entity)this.f)).func_177984_a();
+              this.g = a(this.c);
+            } catch (IllegalArgumentException illegalArgumentException) {
+              throw a(null);
+            } 
+            return (this.g != null);
+          } 
+        } catch (IllegalArgumentException illegalArgumentException) {
+          throw a(null);
+        }  
+    } catch (IllegalArgumentException illegalArgumentException) {
+      throw a(null);
+    } 
+    return false;
+  }
+  
+  public boolean func_75253_b() {
+    try {
     
-    private static NullPointerException a(NullPointerException param1NullPointerException) {
-      return param1NullPointerException;
-    }
+    } catch (IllegalArgumentException illegalArgumentException) {
+      throw a(null);
+    } 
+    return (this.a >= 0);
+  }
+  
+  public void func_75249_e() {
+    this.e = false;
+    this.d = (float)((this.c.func_177958_n() + 0.5F) - this.f.field_70165_t);
+    this.b = (float)((this.c.func_177952_p() + 0.5F) - this.f.field_70161_v);
+    this.g.func_176512_a(this.f.field_70170_p, this.c, true);
+  }
+  
+  public void func_75246_d() {
+    float f1 = (float)((this.c.func_177958_n() + 0.5F) - this.f.field_70165_t);
+    float f2 = (float)((this.c.func_177952_p() + 0.5F) - this.f.field_70161_v);
+    float f3 = this.d * f1 + this.b * f2;
+    try {
+      if (f3 < 0.0F)
+        try {
+          if (--this.a <= 0) {
+            this.g.func_176512_a(this.f.field_70170_p, this.c, false);
+            this.e = true;
+          } 
+        } catch (IllegalArgumentException illegalArgumentException) {
+          throw a(null);
+        }  
+    } catch (IllegalArgumentException illegalArgumentException) {
+      throw a(null);
+    } 
+  }
+  
+  public void func_75251_c() {
+    this.a = 10;
+  }
+  
+  private BlockDoor a(BlockPos paramBlockPos) {
+    IBlockState iBlockState = this.f.field_70170_p.func_180495_p(paramBlockPos);
+    Block block = iBlockState.func_177230_c();
+    try {
+      if (block instanceof BlockDoor)
+        try {
+          if (iBlockState.func_185904_a() == Material.field_151575_d);
+        } catch (IllegalArgumentException illegalArgumentException) {
+          throw a(null);
+        }  
+    } catch (IllegalArgumentException illegalArgumentException) {
+      throw a(null);
+    } 
+    return null;
+  }
+  
+  private static IllegalArgumentException a(IllegalArgumentException paramIllegalArgumentException) {
+    return paramIllegalArgumentException;
   }
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\ao.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\ao.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

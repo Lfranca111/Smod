@@ -1,12 +1,14 @@
 package com.schnurritv.sexmod;
 
 import io.netty.buffer.ByteBuf;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.world.WorldServer;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.server.management.PlayerList;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -15,98 +17,92 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class l implements IMessage {
-  boolean a;
+  boolean b = false;
   
-  UUID b;
+  UUID a;
+  
+  UUID d;
+  
+  String c;
   
   public l() {}
   
-  public l(UUID paramUUID) {
-    this.b = paramUUID;
+  public l(UUID paramUUID1, UUID paramUUID2, String paramString) {
+    this.a = paramUUID1;
+    this.d = paramUUID2;
+    this.c = paramString;
   }
   
   public void fromBytes(ByteBuf paramByteBuf) {
-    this.b = UUID.fromString(ByteBufUtils.readUTF8String(paramByteBuf));
-    this.a = true;
+    this.a = UUID.fromString(ByteBufUtils.readUTF8String(paramByteBuf));
+    this.d = UUID.fromString(ByteBufUtils.readUTF8String(paramByteBuf));
+    this.c = ByteBufUtils.readUTF8String(paramByteBuf);
+    this.b = true;
   }
   
   public void toBytes(ByteBuf paramByteBuf) {
-    ByteBufUtils.writeUTF8String(paramByteBuf, this.b.toString());
+    ByteBufUtils.writeUTF8String(paramByteBuf, this.a.toString());
+    ByteBufUtils.writeUTF8String(paramByteBuf, this.d.toString());
+    ByteBufUtils.writeUTF8String(paramByteBuf, this.c);
   }
   
   public static class a implements IMessageHandler<l, IMessage> {
     public IMessage a(l param1l, MessageContext param1MessageContext) {
       try {
-        if (param1l.a)
+        if (param1l.b)
           try {
             if (param1MessageContext.side == Side.SERVER) {
               FMLCommonHandler.instance().getMinecraftServerInstance().func_152344_a(() -> {
-                    ArrayList<Q> arrayList = Q.a(param1l.b);
-                    for (Q q : arrayList) {
+                    List<b3> list = s.m(param1l.a);
+                    EyeAndKoboldColor eyeAndKoboldColor = null;
+                    for (b3 b3 : list) {
                       try {
-                        if (q.field_70170_p.field_72995_K)
+                        if (b3.O())
                           continue; 
-                      } catch (NullPointerException nullPointerException) {
+                      } catch (RuntimeException runtimeException) {
                         throw a(null);
                       } 
-                      try {
-                        if (q.h() != b1.THROW_PEARL) {
-                          q.b(b1.THROW_PEARL);
-                          q.a((float)Math.atan2(q.field_70161_v - q.a.field_72449_c, q.field_70165_t - q.a.field_72450_a) * 57.29578F + 90.0F);
-                          q.a(q.func_174791_d());
-                          q.func_184212_Q().func_187227_b(Q.c, Boolean.valueOf(true));
-                          q.h = null;
-                          continue;
-                        } 
-                      } catch (NullPointerException nullPointerException) {
-                        throw a(null);
-                      } 
-                      if (q.h == null) {
-                        float f = (float)q.func_174791_d().func_72438_d(q.a);
-                        q.h = new bc(q.field_70170_p, (EntityLivingBase)q);
-                        q.h.func_70186_c(q.a.field_72450_a - q.field_70165_t, q.a.field_72448_b - q.field_70163_u, q.a.field_72449_c - q.field_70161_v, Math.min(4.0F, f * 0.1F), 0.0F);
-                        q.field_70170_p.func_72838_d((Entity)q.h);
-                        continue;
-                      } 
-                      WorldServer worldServer = (WorldServer)q.field_70170_p;
-                      byte b = 0;
-                      try {
-                        while (b < 32) {
-                          worldServer.func_180505_a(EnumParticleTypes.PORTAL, false, q.field_70165_t, q.field_70163_u + bY.b.nextDouble() * 2.0D, q.field_70161_v, 32, 0.2D, 0.2D, 0.2D, bY.b.nextGaussian(), new int[0]);
-                          b++;
-                        } 
-                      } catch (NullPointerException nullPointerException) {
-                        throw a(null);
-                      } 
-                      q.func_70107_b(q.a.field_72450_a, q.a.field_72448_b, q.a.field_72449_c);
-                      q.h = null;
-                      q.b(b1.NULL);
-                      q.func_184212_Q().func_187227_b(Q.c, Boolean.valueOf(false));
-                      q.n();
+                      EntityDataManager entityDataManager = b3.func_184212_Q();
+                      entityDataManager.func_187227_b(bS.b, param1l.d.toString());
+                      entityDataManager.func_187227_b(b3.ai, param1l.c);
+                      eyeAndKoboldColor = EyeAndKoboldColor.valueOf((String)entityDataManager.func_187225_a(b3.G));
                     } 
+                    try {
+                      if (eyeAndKoboldColor == null)
+                        return; 
+                    } catch (RuntimeException runtimeException) {
+                      throw a(null);
+                    } 
+                    PlayerList playerList = FMLCommonHandler.instance().getMinecraftServerInstance().func_184103_al();
+                    String str = (param1MessageContext.getServerHandler()).field_147369_b.func_70005_c_();
+                    for (EntityPlayer entityPlayer : playerList.func_181057_v()) {
+                      entityPlayer.func_145747_a((ITextComponent)new TextComponentString(String.format("%s formed the " + eyeAndKoboldColor.getTextColor() + "%s " + TextFormatting.WHITE + "Tribe", new Object[] { str, param1l.c })));
+                    } 
+                    s.a(param1l.a, true);
+                    s.a(param1l.a, (param1MessageContext.getServerHandler()).field_147369_b.getPersistentID());
                   });
               return null;
             } 
-            System.out.println("received an invalid message @SendCompanionHome :(");
+            System.out.println("received an invalid message @ClaimTribe :(");
             return null;
-          } catch (NullPointerException nullPointerException) {
+          } catch (RuntimeException runtimeException) {
             throw a(null);
           }  
-      } catch (NullPointerException nullPointerException) {
+      } catch (RuntimeException runtimeException) {
         throw a(null);
       } 
-      System.out.println("received an invalid message @SendCompanionHome :(");
+      System.out.println("received an invalid message @ClaimTribe :(");
       return null;
     }
     
-    private static NullPointerException a(NullPointerException param1NullPointerException) {
-      return param1NullPointerException;
+    private static RuntimeException a(RuntimeException param1RuntimeException) {
+      return param1RuntimeException;
     }
   }
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\l.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\l.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

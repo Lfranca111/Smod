@@ -54,6 +54,11 @@
 					]
 				},
 				{
+					"name": "customShoeR",
+					"parent": "shinR",
+					"pivot": [-1.70286, -0.01914, 0.2]
+				},
+				{
 					"name": "curvesR",
 					"parent": "legR",
 					"pivot": [-2.99645, 7.71237, -0.05],
@@ -490,6 +495,11 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "customShoeL",
+					"parent": "shinL",
+					"pivot": [1.70286, -0.01914, 0.2]
 				},
 				{
 					"name": "curvesL",
@@ -7539,6 +7549,11 @@
 					"rotation": [-79.65473, 14.76689, -87.33601]
 				},
 				{
+					"name": "customHandR",
+					"parent": "lowerArmR",
+					"pivot": [-4.03968, 19.50338, 1.54769]
+				},
+				{
 					"name": "ellbow",
 					"parent": "armR",
 					"pivot": [-3.9403, 23.708, 0.198]
@@ -7775,6 +7790,11 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "customHandL",
+					"parent": "lowerArmL",
+					"pivot": [4.23968, 14.80338, 1.44769]
 				},
 				{
 					"name": "ellbowL",
@@ -8147,6 +8167,11 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "customHead",
+					"parent": "head",
+					"pivot": [0, 31.05, 0]
 				},
 				{
 					"name": "blush",

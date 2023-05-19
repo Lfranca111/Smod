@@ -1,35 +1,80 @@
 package com.schnurritv.sexmod;
 
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelBox;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
+import io.netty.buffer.ByteBuf;
+import java.util.UUID;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
 
-public class a4 extends ModelBase implements b0 {
-  private final ModelRenderer a = new ModelRenderer(this);
+public class a4 implements IMessage {
+  boolean b = false;
   
-  public a4() {
-    this.a.func_78793_a(-5.0F, 2.5F, 0.0F);
-    this.a.field_78804_l.add(new ModelBox(this.a, 0, 0, -2.0F, -6.0F, 0.0F, 2, 6, 2, 0.0F, false));
+  UUID c;
+  
+  int d;
+  
+  m a;
+  
+  public a4() {}
+  
+  public a4(UUID paramUUID, int paramInt, m paramm) {
+    this.c = paramUUID;
+    this.d = paramInt;
+    this.a = paramm;
   }
   
-  public void func_78088_a(Entity paramEntity, float paramFloat1, float paramFloat2, float paramFloat3, float paramFloat4, float paramFloat5, float paramFloat6) {
-    this.a.func_78785_a(paramFloat6);
+  public void fromBytes(ByteBuf paramByteBuf) {
+    this.c = UUID.fromString(ByteBufUtils.readUTF8String(paramByteBuf));
+    this.d = paramByteBuf.readInt();
+    this.a = m.valueOf(ByteBufUtils.readUTF8String(paramByteBuf));
+    this.b = true;
   }
   
-  public void a(ModelRenderer paramModelRenderer, float paramFloat1, float paramFloat2, float paramFloat3) {
-    paramModelRenderer.field_78795_f = paramFloat1;
-    paramModelRenderer.field_78796_g = paramFloat2;
-    paramModelRenderer.field_78808_h = paramFloat3;
+  public void toBytes(ByteBuf paramByteBuf) {
+    ByteBufUtils.writeUTF8String(paramByteBuf, this.c.toString());
+    paramByteBuf.writeInt(this.d);
+    ByteBufUtils.writeUTF8String(paramByteBuf, this.a.toString());
   }
   
-  public ModelRenderer a() {
-    return this.a;
+  public static class a implements IMessageHandler<a4, IMessage> {
+    public IMessage a(a4 param1a4, MessageContext param1MessageContext) {
+      try {
+        if (param1a4.b)
+          try {
+            if (param1MessageContext.side.equals(Side.CLIENT)) {
+              bo bo = bo.f(param1a4.c);
+              try {
+                if (bo == null)
+                  return null; 
+              } catch (RuntimeException runtimeException) {
+                throw a(null);
+              } 
+              bo.func_184212_Q().func_187227_b(bS.a, param1a4.a.toString());
+              bo.func_184212_Q().func_187227_b(bS.F, Integer.valueOf(param1a4.d));
+              return null;
+            } 
+            System.out.println("received an invalid message @ForcePlayerGirlUpdate :(");
+            return null;
+          } catch (RuntimeException runtimeException) {
+            throw a(null);
+          }  
+      } catch (RuntimeException runtimeException) {
+        throw a(null);
+      } 
+      System.out.println("received an invalid message @ForcePlayerGirlUpdate :(");
+      return null;
+    }
+    
+    private static RuntimeException a(RuntimeException param1RuntimeException) {
+      return param1RuntimeException;
+    }
   }
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\a4.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\a4.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

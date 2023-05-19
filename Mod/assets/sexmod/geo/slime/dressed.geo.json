@@ -3511,6 +3511,11 @@
 					]
 				},
 				{
+					"name": "customHead",
+					"parent": "head",
+					"pivot": [0, 28.95, 0]
+				},
+				{
 					"name": "girlCam",
 					"parent": "head",
 					"pivot": [-0.03533, 25.46604, -2.46747]
@@ -4357,6 +4362,11 @@
 					]
 				},
 				{
+					"name": "customHandR",
+					"parent": "lowerArmR",
+					"pivot": [-3.73968, 13.60338, 1.44769]
+				},
+				{
 					"name": "ellbowL2",
 					"parent": "armR",
 					"pivot": [-3.9403, 21.933, 0.198]
@@ -4601,6 +4611,11 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "customHandL",
+					"parent": "lowerArmL",
+					"pivot": [3.73968, 13.60338, 1.44769]
 				},
 				{
 					"name": "ellbowL3",
@@ -7834,6 +7849,11 @@
 					]
 				},
 				{
+					"name": "customShoeL",
+					"parent": "shinL",
+					"pivot": [1.45286, -0.06914, 0.2]
+				},
+				{
 					"name": "curvesL",
 					"parent": "legL",
 					"pivot": [2.44645, 5.91237, -0.05],
@@ -8226,6 +8246,11 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "customShoeR",
+					"parent": "shinR",
+					"pivot": [-1.45286, -0.06914, 0.2]
 				},
 				{
 					"name": "curvesL2",

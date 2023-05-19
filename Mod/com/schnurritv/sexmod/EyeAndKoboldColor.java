@@ -13,7 +13,8 @@ public enum EyeAndKoboldColor {
   DARK_GREY(92, 92, 110, 198, 193, 165, 7, TextFormatting.DARK_GRAY),
   BROWN(200, 145, 112, 253, 228, 198, 12, TextFormatting.GOLD),
   DARK_BLUE(65, 84, 116, 104, 137, 146, 11, TextFormatting.DARK_BLUE),
-  LIGHT_BLUE(100, 163, 206, 138, 235, 242, 3, TextFormatting.DARK_AQUA);
+  LIGHT_BLUE(100, 163, 206, 138, 235, 242, 3, TextFormatting.DARK_AQUA),
+  SILVER(136, 136, 134, 255, 255, 255, 0, TextFormatting.GRAY);
   
   private final Vec3i mainColor;
   
@@ -30,42 +31,50 @@ public enum EyeAndKoboldColor {
     this.textColor = paramTextFormatting;
   }
   
+  public static int indexOf(EyeAndKoboldColor paramEyeAndKoboldColor) {
+    byte b = 0;
+    for (EyeAndKoboldColor eyeAndKoboldColor : values()) {
+      try {
+        if (paramEyeAndKoboldColor == eyeAndKoboldColor)
+          return b; 
+      } catch (IllegalArgumentException illegalArgumentException) {
+        throw a(null);
+      } 
+      b++;
+    } 
+    return b;
+  }
+  
   public static EyeAndKoboldColor safeValueOf(String paramString) {
     try {
       return valueOf(paramString);
     } catch (IllegalArgumentException illegalArgumentException) {
-      return aD.F;
+      return b3.aP;
     } 
   }
   
-  public static EyeAndKoboldColor getColorByWoolId(int paramInt) {
-    try {
-      switch (paramInt) {
-        case 9:
-          return GREEN;
-        case 4:
-          return YELLOW;
-        case 14:
-          return RED;
-        case 10:
-          return PURPLE;
-        case 5:
-          return LIGHT_GREEN;
-        case 2:
-          return OLD_BLUE;
-        case 7:
-          return DARK_GREY;
-        case 12:
-          return BROWN;
-        case 11:
-          return DARK_BLUE;
-        case 3:
-          return LIGHT_BLUE;
+  public static EyeAndKoboldColor safeValueOf(Vec3i paramVec3i) {
+    for (EyeAndKoboldColor eyeAndKoboldColor : values()) {
+      try {
+        if (paramVec3i.equals(eyeAndKoboldColor.getMainColor()))
+          return eyeAndKoboldColor; 
+      } catch (IllegalArgumentException illegalArgumentException) {
+        throw a(null);
       } 
-    } catch (IllegalArgumentException illegalArgumentException) {
-      throw a(null);
     } 
-    return aD.F;
+    return b3.aP;
+  }
+  
+  public static EyeAndKoboldColor getColorByWoolId(int paramInt) {
+    for (EyeAndKoboldColor eyeAndKoboldColor : values()) {
+      try {
+        if (eyeAndKoboldColor.getWoolMeta() == paramInt)
+          return eyeAndKoboldColor; 
+      } catch (IllegalArgumentException illegalArgumentException) {
+        throw a(null);
+      } 
+    } 
+    return b3.aP;
   }
   
   public Vec3i getMainColor() {
@@ -90,7 +99,7 @@ public enum EyeAndKoboldColor {
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\EyeAndKoboldColor.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\EyeAndKoboldColor.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

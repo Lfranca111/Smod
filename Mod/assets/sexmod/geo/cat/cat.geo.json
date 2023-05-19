@@ -54,6 +54,11 @@
 					]
 				},
 				{
+					"name": "customShoeR",
+					"parent": "shinR",
+					"pivot": [-1.60286, -0.06914, -0.3]
+				},
+				{
 					"name": "armorPantsLowR",
 					"parent": "shinR",
 					"pivot": [-1.00143, 6.93085, 0],
@@ -874,6 +879,11 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "customShoeL",
+					"parent": "shinL",
+					"pivot": [1.60286, -0.06914, -0.3]
 				},
 				{
 					"name": "armorPantsLowL",
@@ -7793,6 +7803,11 @@
 					"pivot": [3.21778, 11.5134, 1.3968]
 				},
 				{
+					"name": "customHandL",
+					"parent": "lowerArmL",
+					"pivot": [3.23968, 13.60338, 0.54769]
+				},
+				{
 					"name": "ellbowL",
 					"parent": "armL",
 					"pivot": [4.06751, 20.9787, 0.31696]
@@ -8453,6 +8468,11 @@
 					"pivot": [-3.23222, 11.9134, 1.4968]
 				},
 				{
+					"name": "customHandR",
+					"parent": "lowerArmR",
+					"pivot": [-3.23968, 13.60338, 0.54769]
+				},
+				{
 					"name": "ellbowL2",
 					"parent": "armR",
 					"pivot": [-4.0627, 20.9847, 0.31696]
@@ -9051,6 +9071,11 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "customHead",
+					"parent": "head",
+					"pivot": [0, 27.95, -1.1]
 				},
 				{
 					"name": "girlCam",

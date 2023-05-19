@@ -75,7 +75,7 @@ public class c extends WorldClient {
   public boolean isSideSolid(BlockPos paramBlockPos, EnumFacing paramEnumFacing) {
     try {
     
-    } catch (NullPointerException nullPointerException) {
+    } catch (RuntimeException runtimeException) {
       throw a(null);
     } 
     return (paramBlockPos.func_177956_o() <= 63);
@@ -84,7 +84,7 @@ public class c extends WorldClient {
   public boolean isSideSolid(BlockPos paramBlockPos, EnumFacing paramEnumFacing, boolean paramBoolean) {
     try {
     
-    } catch (NullPointerException nullPointerException) {
+    } catch (RuntimeException runtimeException) {
       throw a(null);
     } 
     return (paramBlockPos.func_177956_o() <= 63);
@@ -94,8 +94,8 @@ public class c extends WorldClient {
     return 0;
   }
   
-  private static NullPointerException a(NullPointerException paramNullPointerException) {
-    return paramNullPointerException;
+  private static RuntimeException a(RuntimeException paramRuntimeException) {
+    return paramRuntimeException;
   }
   
   protected static class a extends WorldProvider {
@@ -244,7 +244,7 @@ public class c extends WorldClient {
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\c.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\c.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

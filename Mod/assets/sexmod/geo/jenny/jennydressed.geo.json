@@ -115,6 +115,11 @@
 					]
 				},
 				{
+					"name": "customHead",
+					"parent": "head",
+					"pivot": [0, 31.05, 0]
+				},
+				{
 					"name": "heart",
 					"parent": "head",
 					"pivot": [-0.7, 27.35, -0.6],
@@ -891,6 +896,20 @@
 					]
 				},
 				{
+					"name": "bigSmile",
+					"parent": "mouth",
+					"pivot": [0.2375, 24.9375, -3.001],
+					"cubes": [
+						{
+							"origin": [-0.6875, 24.575, -3.001],
+							"size": [1.6875, 0.5625, 0],
+							"uv": {
+								"north": {"uv": [60.14063, 38.21875], "uv_size": [3.75, 1.35]}
+							}
+						}
+					]
+				},
+				{
 					"name": "cum",
 					"parent": "mouth",
 					"pivot": [0.3375, 25.1375, -3.001],
@@ -1026,6 +1045,11 @@
 					"name": "girlCam",
 					"parent": "head",
 					"pivot": [-0.03533, 27.56604, -2.46747]
+				},
+				{
+					"name": "customHat",
+					"parent": "head",
+					"pivot": [0, 30.95, -0.5]
 				},
 				{
 					"name": "neck",
@@ -4461,6 +4485,11 @@
 					]
 				},
 				{
+					"name": "customHandR",
+					"parent": "lowerArmR",
+					"pivot": [-4.03968, 19.50338, 1.54769]
+				},
+				{
 					"name": "weapon",
 					"parent": "lowerArmR",
 					"pivot": [-3.91529, 20.63307, 3.55],
@@ -4739,6 +4768,11 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "customHandL",
+					"parent": "lowerArmL",
+					"pivot": [4.23968, 14.80338, 1.44769]
 				},
 				{
 					"name": "offhand",
@@ -10012,6 +10046,11 @@
 					]
 				},
 				{
+					"name": "customShoeL",
+					"parent": "shinL",
+					"pivot": [1.70286, -0.01914, 0.2]
+				},
+				{
 					"name": "curvesL",
 					"parent": "legL",
 					"pivot": [2.99645, 7.71237, -0.05],
@@ -10842,6 +10881,11 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "customShoeR",
+					"parent": "shinR",
+					"pivot": [-1.70286, -0.01914, 0.2]
 				},
 				{
 					"name": "curvesR",

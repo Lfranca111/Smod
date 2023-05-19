@@ -1,208 +1,160 @@
 package com.schnurritv.sexmod;
 
-import java.util.ConcurrentModificationException;
-import java.util.UUID;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.entity.Entity;
-import net.minecraftforge.client.event.RenderHandEvent;
-import net.minecraftforge.client.event.RenderPlayerEvent;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import java.util.Arrays;
+import javax.vecmath.Tuple3f;
+import javax.vecmath.Vector3f;
+import net.minecraft.util.ResourceLocation;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.processor.AnimationProcessor;
+import software.bernie.geckolib3.core.processor.IBone;
 
-public class bz {
-  @SideOnly(Side.CLIENT)
-  @SubscribeEvent
-  public void a(RenderWorldLastEvent paramRenderWorldLastEvent) {
-    Minecraft minecraft = Minecraft.func_71410_x();
-    try {
-      if (minecraft.field_71474_y.field_74320_O != 0)
-        return; 
-    } catch (ConcurrentModificationException concurrentModificationException) {
-      throw a(null);
-    } 
-    UUID uUID = minecraft.field_71439_g.getPersistentID();
-    ag ag = null;
-    try {
-      for (Q q : Q.f()) {
-        try {
-          if (q == null)
-            continue; 
-        } catch (ConcurrentModificationException concurrentModificationException) {
-          throw a(null);
-        } 
-        try {
-          if (!q.field_70170_p.field_72995_K)
-            continue; 
-        } catch (ConcurrentModificationException concurrentModificationException) {
-          throw a(null);
-        } 
-        try {
-          if (!(q instanceof ag))
-            continue; 
-        } catch (ConcurrentModificationException concurrentModificationException) {
-          throw a(null);
-        } 
-        ag ag1 = (ag)q;
-        if (uUID.equals(ag1.r())) {
-          ag = ag1;
-          break;
-        } 
-      } 
-    } catch (ConcurrentModificationException concurrentModificationException) {}
-    try {
-      if (ag == null)
-        return; 
-    } catch (ConcurrentModificationException concurrentModificationException) {
-      throw a(null);
-    } 
-    Render render = minecraft.func_175598_ae().func_78713_a((Entity)ag);
-    try {
-      if (render == null)
-        return; 
-    } catch (ConcurrentModificationException concurrentModificationException) {
-      throw a(null);
-    } 
-    try {
-      if (!(render instanceof cP))
-        return; 
-    } catch (ConcurrentModificationException concurrentModificationException) {
-      throw a(null);
-    } 
-    cP cP = (cP)render;
-    float f1 = minecraft.field_71439_g.field_70177_z;
-    cP.q = (float)(minecraft.field_71439_g.field_71158_b.field_78902_a * cP.w.field_72450_a);
-    cP.q += -(f1 - cP.D) * 3.0F;
-    cP.q = bZ.a(cP.r, cP.q, 0.1F);
-    float f2 = -minecraft.field_71439_g.field_70125_A;
-    cP.p = (float)(minecraft.field_71439_g.field_71158_b.field_192832_b * cP.w.field_72449_c + (float)minecraft.field_71439_g.field_70181_x * cP.w.field_72448_b);
-    cP.p += -(f2 - cP.C) * 3.0F;
-    cP.p = bZ.a(cP.u, cP.p, 0.1F);
-    cP.b(ag, paramRenderWorldLastEvent.getPartialTicks());
-    cP.D = f1;
-    cP.r = cP.q;
-    cP.C = f2;
-    cP.u = cP.p;
-    minecraft.field_71474_y.field_74319_N = false;
+public class bz extends bE {
+  m[] c = new m[] { m.STARTDOGGY, m.DOGGYCUM, m.DOGGYSLOW, m.DOGGYFAST, m.DOGGYCUM, m.DOGGYSTART, m.WAITDOGGY };
+  
+  protected ResourceLocation[] a() {
+    return new ResourceLocation[] { new ResourceLocation("sexmod", "geo/slime/nude.geo.json"), new ResourceLocation("sexmod", "geo/slime/armored.geo.json"), new ResourceLocation("sexmod", "geo/slime/dressed.geo.json") };
   }
   
-  @SideOnly(Side.CLIENT)
-  @SubscribeEvent
-  public void b(RenderWorldLastEvent paramRenderWorldLastEvent) {
-    Minecraft minecraft = Minecraft.func_71410_x();
+  public ResourceLocation d(bS parambS) {
     try {
-      if (minecraft.field_71439_g == null)
-        return; 
-    } catch (ConcurrentModificationException concurrentModificationException) {
+      if (parambS.field_70170_p instanceof com.c)
+        return this.b[0]; 
+    } catch (RuntimeException runtimeException) {
       throw a(null);
     } 
-    UUID uUID = minecraft.field_71439_g.getPersistentID();
     try {
-      for (Q q : Q.f()) {
+      if (((Integer)parambS.func_184212_Q().func_187225_a(bS.F)).intValue() > this.b.length) {
+        System.out.println("Girl doesn't have an outfit Nr." + parambS.func_184212_Q().func_187225_a(bS.F) + " so im just making her nude lol");
+        return this.b[0];
+      } 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    try {
+      if (parambS instanceof bK)
+        return this.b[((Integer)parambS.func_184212_Q().func_187225_a(bS.F)).intValue()]; 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    try {
+      if (((Integer)parambS.func_184212_Q().func_187225_a(bS.F)).intValue() == 1)
+        return this.b[2]; 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    return this.b[0];
+  }
+  
+  public ResourceLocation b() {
+    return new ResourceLocation("sexmod", "textures/entity/slime/slime.png");
+  }
+  
+  public ResourceLocation c() {
+    return new ResourceLocation("sexmod", "animations/slime/slime.animation.json");
+  }
+  
+  public void a(bS parambS, Integer paramInteger, AnimationEvent paramAnimationEvent) {
+    super.a(parambS, paramInteger, paramAnimationEvent);
+    AnimationProcessor animationProcessor = getAnimationProcessor();
+    try {
+      if (!(parambS.field_70170_p instanceof com.c))
         try {
-          if (!q.field_70170_p.field_72995_K)
-            continue; 
-        } catch (ConcurrentModificationException concurrentModificationException) {
-          throw a(null);
-        } 
-        try {
-          if (!(q instanceof ag))
-            continue; 
-        } catch (ConcurrentModificationException concurrentModificationException) {
-          throw a(null);
-        } 
-        ag ag = (ag)q;
-        try {
-          if (q.h() == b1.START_THROWING) {
+          if (animationProcessor.getBone("bedSlime") != null)
             try {
-              ag.ag = true;
-            } catch (ConcurrentModificationException concurrentModificationException) {
+              if (animationProcessor.getBone("bedSlimeLayer") != null) {
+                try {
+                
+                } catch (RuntimeException runtimeException) {
+                  throw a(null);
+                } 
+                try {
+                  animationProcessor.getBone("bedSlime").setHidden(!Arrays.<m>asList(this.c).contains(parambS.o()));
+                } catch (RuntimeException runtimeException) {
+                  throw a(null);
+                } 
+                animationProcessor.getBone("bedSlimeLayer").setHidden(!Arrays.<m>asList(this.c).contains(parambS.o()));
+              } 
+            } catch (RuntimeException runtimeException) {
               throw a(null);
-            } 
-            minecraft.func_175598_ae().func_188391_a((Entity)ag, 0.0D, 0.0D, 0.0D, uUID.equals(ag.r()) ? -420.69F : 0.0F, minecraft.func_184121_ak(), false);
-            ag.ag = false;
-            minecraft.field_71474_y.field_74319_N = false;
-            return;
-          } 
-        } catch (ConcurrentModificationException concurrentModificationException) {
+            }  
+        } catch (RuntimeException runtimeException) {
           throw a(null);
-        } 
-      } 
-    } catch (ConcurrentModificationException concurrentModificationException) {}
-  }
-  
-  @SideOnly(Side.CLIENT)
-  @SubscribeEvent
-  public void a(RenderHandEvent paramRenderHandEvent) {
-    Minecraft minecraft = Minecraft.func_71410_x();
-    UUID uUID = minecraft.field_71439_g.getPersistentID();
+        }  
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
     try {
-      for (Q q : Q.f()) {
-        try {
-          if (!(q instanceof ag))
-            continue; 
-        } catch (ConcurrentModificationException concurrentModificationException) {
-          throw a(null);
-        } 
-        ag ag = (ag)q;
-        try {
-          if (q.h() != b1.PICK_UP)
-            continue; 
-        } catch (ConcurrentModificationException concurrentModificationException) {
-          throw a(null);
-        } 
-        try {
-          if (uUID.equals(ag.r())) {
-            paramRenderHandEvent.setCanceled(true);
-            break;
-          } 
-        } catch (ConcurrentModificationException concurrentModificationException) {
-          throw a(null);
-        } 
-      } 
-    } catch (ConcurrentModificationException concurrentModificationException) {}
+      if (parambS instanceof bo)
+        return; 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    a(new String[] { "head" }, "hat");
   }
   
-  @SideOnly(Side.CLIENT)
-  @SubscribeEvent
-  public void a(RenderPlayerEvent.Pre paramPre) {
-    UUID uUID = paramPre.getEntityPlayer().getPersistentID();
+  void a(String[] paramArrayOfString, String paramString) {
+    AnimationProcessor animationProcessor = getAnimationProcessor();
+    IBone iBone = animationProcessor.getBone(paramString);
+    IBone[] arrayOfIBone = new IBone[paramArrayOfString.length];
+    byte b = 0;
     try {
-      for (Q q : Q.f()) {
-        try {
-          if (!(q instanceof ag))
-            continue; 
-        } catch (ConcurrentModificationException concurrentModificationException) {
-          throw a(null);
-        } 
-        ag ag = (ag)q;
-        try {
-          if (q.h() != b1.PICK_UP)
-            continue; 
-        } catch (ConcurrentModificationException concurrentModificationException) {
-          throw a(null);
-        } 
-        try {
-          if (uUID.equals(ag.r())) {
-            paramPre.setCanceled(true);
-            break;
-          } 
-        } catch (ConcurrentModificationException concurrentModificationException) {
-          throw a(null);
-        } 
+      while (b < arrayOfIBone.length) {
+        arrayOfIBone[b] = animationProcessor.getBone(paramArrayOfString[b]);
+        b++;
       } 
-    } catch (ConcurrentModificationException concurrentModificationException) {}
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    Vector3f vector3f1 = new Vector3f(0.0F, 0.0F, 0.0F);
+    Vector3f vector3f2 = new Vector3f(0.0F, 0.0F, 0.0F);
+    for (IBone iBone1 : arrayOfIBone) {
+      vector3f1.add((Tuple3f)new Vector3f(iBone1.getRotationX(), iBone1.getRotationY(), iBone1.getRotationZ()));
+      vector3f2.add((Tuple3f)new Vector3f(iBone1.getPositionX(), iBone1.getPositionY(), iBone1.getPositionZ()));
+    } 
+    iBone.setRotationX(vector3f1.x);
+    iBone.setRotationY(vector3f1.y);
+    iBone.setRotationZ(vector3f1.z);
+    iBone.setPositionX(vector3f2.x);
+    iBone.setPositionY(vector3f2.y);
+    iBone.setPositionZ(vector3f2.z);
+    iBone.setPositionZ(vector3f2.z);
   }
   
-  private static ConcurrentModificationException a(ConcurrentModificationException paramConcurrentModificationException) {
-    return paramConcurrentModificationException;
+  public String[] d() {
+    return new String[] { "armorHelmet" };
+  }
+  
+  public String[] h() {
+    return new String[] { "bigblob" };
+  }
+  
+  public String[] g() {
+    return new String[] { "armorShoulderR", "armorShoulderL", "armorChest", "armorBoobs" };
+  }
+  
+  public String[] a() {
+    return new String[] { "boobsFlesh", "upperBodyL", "upperBodyR", "cloth" };
+  }
+  
+  public String[] e() {
+    return new String[] { "armorBootyR", "armorBootyL", "armorPantsLowL", "armorPantsLowR", "armorPantsLowR", "armorPantsUpR", "armorPantsUpL", "armorHip" };
+  }
+  
+  public String[] c() {
+    return new String[] { "fleshL", "fleshR", "vagina", "curvesL", "curvesR", "kneeL", "kneeR" };
+  }
+  
+  public String[] f() {
+    return new String[] { "armorShoesL", "armorShoesR" };
+  }
+  
+  private static RuntimeException a(RuntimeException paramRuntimeException) {
+    return paramRuntimeException;
   }
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\bz.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\bz.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

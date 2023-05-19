@@ -1,134 +1,104 @@
 package com.schnurritv.sexmod;
 
-import java.util.ConcurrentModificationException;
-import java.util.UUID;
+import io.netty.buffer.ByteBuf;
+import java.util.HashMap;
+import java.util.Map;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.IGuiHandler;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class i implements IGuiHandler {
-  public Object getServerGuiElement(int paramInt1, EntityPlayer paramEntityPlayer, World paramWorld, int paramInt2, int paramInt3, int paramInt4) {
-    if (paramInt1 == 0)
-      try {
-        for (Q q : Q.f()) {
-          try {
-            if (!q.field_70170_p.field_72995_K)
-              try {
-                if (q.func_180425_c().func_177958_n() == paramInt2)
-                  try {
-                    if (q.func_180425_c().func_177956_o() == paramInt3)
-                      try {
-                        if (q.func_180425_c().func_177952_p() == paramInt4)
-                          return (q instanceof aI) ? new am((aI)q, paramEntityPlayer.field_71071_by, UUID.randomUUID()) : new bG(q, paramEntityPlayer.field_71071_by, UUID.randomUUID()); 
-                      } catch (ConcurrentModificationException concurrentModificationException) {
-                        throw a(null);
-                      }  
-                  } catch (ConcurrentModificationException concurrentModificationException) {
-                    throw a(null);
-                  }  
-              } catch (ConcurrentModificationException concurrentModificationException) {
-                throw a(null);
-              }  
-          } catch (ConcurrentModificationException concurrentModificationException) {
-            throw a(null);
-          } 
-        } 
-      } catch (ConcurrentModificationException concurrentModificationException) {} 
-    if (paramInt1 == 1)
-      try {
-        for (Q q : Q.f()) {
-          try {
-            if (!q.field_70170_p.field_72995_K)
-              try {
-                if (q instanceof IInventory)
-                  try {
-                    if (q.func_180425_c().func_177958_n() == paramInt2)
-                      try {
-                        if (q.func_180425_c().func_177956_o() == paramInt3 && q.func_180425_c().func_177952_p() == paramInt4) {
-                          IInventory iInventory = (IInventory)q;
-                          return new bp((IInventory)paramEntityPlayer.field_71071_by, iInventory, paramEntityPlayer, UUID.randomUUID());
-                        } 
-                      } catch (ConcurrentModificationException concurrentModificationException) {
-                        throw a(null);
-                      }  
-                  } catch (ConcurrentModificationException concurrentModificationException) {
-                    throw a(null);
-                  }  
-              } catch (ConcurrentModificationException concurrentModificationException) {
-                throw a(null);
-              }  
-          } catch (ConcurrentModificationException concurrentModificationException) {
-            throw a(null);
-          } 
-        } 
-      } catch (ConcurrentModificationException concurrentModificationException) {} 
-    return null;
+public class i implements IMessage {
+  boolean a = false;
+  
+  EntityPlayer c;
+  
+  HashMap<bB, String> b = new HashMap<>();
+  
+  public i() {}
+  
+  public i(EntityPlayer paramEntityPlayer) {
+    this.c = paramEntityPlayer;
   }
   
-  public Object getClientGuiElement(int paramInt1, EntityPlayer paramEntityPlayer, World paramWorld, int paramInt2, int paramInt3, int paramInt4) {
-    if (paramInt1 == 0)
-      try {
-        for (Q q : Q.f()) {
-          try {
-            if (q.field_70170_p.field_72995_K)
-              try {
-                if (q.func_180425_c().func_177958_n() == paramInt2)
-                  try {
-                    if (q.func_180425_c().func_177956_o() == paramInt3)
-                      try {
-                        if (q.func_180425_c().func_177952_p() == paramInt4)
-                          return (q instanceof aI) ? new bC((aI)q, paramEntityPlayer.field_71071_by, UUID.randomUUID()) : new az(q, paramEntityPlayer.field_71071_by, UUID.randomUUID()); 
-                      } catch (ConcurrentModificationException concurrentModificationException) {
-                        throw a(null);
-                      }  
-                  } catch (ConcurrentModificationException concurrentModificationException) {
-                    throw a(null);
-                  }  
-              } catch (ConcurrentModificationException concurrentModificationException) {
-                throw a(null);
-              }  
-          } catch (ConcurrentModificationException concurrentModificationException) {
-            throw a(null);
-          } 
-        } 
-      } catch (ConcurrentModificationException concurrentModificationException) {} 
-    if (paramInt1 == 1)
-      try {
-        for (Q q : Q.f()) {
-          try {
-            if (q.field_70170_p.field_72995_K)
-              try {
-                if (q instanceof IInventory)
-                  try {
-                    if (q.func_180425_c().func_177958_n() == paramInt2)
-                      try {
-                        if (q.func_180425_c().func_177956_o() == paramInt3 && q.func_180425_c().func_177952_p() == paramInt4)
-                          return new bK(paramEntityPlayer, q, UUID.randomUUID()); 
-                      } catch (ConcurrentModificationException concurrentModificationException) {
-                        throw a(null);
-                      }  
-                  } catch (ConcurrentModificationException concurrentModificationException) {
-                    throw a(null);
-                  }  
-              } catch (ConcurrentModificationException concurrentModificationException) {
-                throw a(null);
-              }  
-          } catch (ConcurrentModificationException concurrentModificationException) {
-            throw a(null);
-          } 
-        } 
-      } catch (ConcurrentModificationException concurrentModificationException) {} 
-    return null;
+  public void fromBytes(ByteBuf paramByteBuf) {
+    int j = paramByteBuf.readInt();
+    byte b = 0;
+    try {
+      while (b < j) {
+        this.b.put(bB.valueOf(ByteBufUtils.readUTF8String(paramByteBuf)), ByteBufUtils.readUTF8String(paramByteBuf));
+        b++;
+      } 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    this.a = true;
   }
   
-  private static ConcurrentModificationException a(ConcurrentModificationException paramConcurrentModificationException) {
-    return paramConcurrentModificationException;
+  public void toBytes(ByteBuf paramByteBuf) {
+    for (bB bB : bB.values()) {
+      try {
+        if (bB.hasSpecifics) {
+          String str = this.c.getEntityData().func_74779_i("sexmod:GirlSpecific" + bB);
+          try {
+            if (!"".equals(str))
+              this.b.put(bB, str); 
+          } catch (RuntimeException runtimeException) {
+            throw a(null);
+          } 
+        } 
+      } catch (RuntimeException runtimeException) {
+        throw a(null);
+      } 
+    } 
+    paramByteBuf.writeInt(this.b.size());
+    for (Map.Entry<bB, String> entry : this.b.entrySet()) {
+      ByteBufUtils.writeUTF8String(paramByteBuf, ((bB)entry.getKey()).toString());
+      ByteBufUtils.writeUTF8String(paramByteBuf, (String)entry.getValue());
+    } 
+  }
+  
+  private static RuntimeException a(RuntimeException paramRuntimeException) {
+    return paramRuntimeException;
+  }
+  
+  public static class a implements IMessageHandler<i, IMessage> {
+    public IMessage a(i param1i, MessageContext param1MessageContext) {
+      try {
+        if (param1i.a)
+          try {
+            if (param1MessageContext.side == Side.CLIENT) {
+              a(param1i.b);
+              return null;
+            } 
+            return null;
+          } catch (RuntimeException runtimeException) {
+            throw a(null);
+          }  
+      } catch (RuntimeException runtimeException) {
+        throw a(null);
+      } 
+      return null;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void a(HashMap<bB, String> param1HashMap) {
+      Minecraft minecraft = Minecraft.func_71410_x();
+      minecraft.func_152344_a(() -> param1Minecraft.func_147108_a(new cr(param1HashMap)));
+    }
+    
+    private static RuntimeException a(RuntimeException param1RuntimeException) {
+      return param1RuntimeException;
+    }
   }
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\i.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\i.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

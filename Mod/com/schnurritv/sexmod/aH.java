@@ -1,83 +1,42 @@
 package com.schnurritv.sexmod;
 
-import io.netty.buffer.ByteBuf;
-import java.util.UUID;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
-
-public class ah implements IMessage {
-  boolean b = false;
+public enum ah {
+  GIRL_SPECIFIC,
+  HEAD(0, "customHead"),
+  FOOT_L(60, "customShoeL"),
+  FOOT_R(80, "customShoeR"),
+  HAND_L(100, "customHandL"),
+  HAND_R(120, "customHandR"),
+  CUSTOM_BONE(140);
   
-  UUID c;
+  public static final String SEPARATOR = "#";
   
-  ItemStack a;
+  public int buttonIDPlus;
   
-  public ah() {}
+  public int buttonIDMinus;
   
-  public ah(UUID paramUUID, ItemStack paramItemStack) {
-    this.c = paramUUID;
-    this.a = paramItemStack;
+  public String boneName = null;
+  
+  public int iconXPos = 0;
+  
+  ah(int paramInt1) {
+    this.iconXPos = paramInt1;
   }
   
-  public void fromBytes(ByteBuf paramByteBuf) {
-    this.c = UUID.fromString(ByteBufUtils.readUTF8String(paramByteBuf));
-    this.a = ByteBufUtils.readItemStack(paramByteBuf);
-    this.b = true;
+  ah(int paramInt1, String paramString1) {
+    this.iconXPos = paramInt1;
+    this.boneName = paramString1;
+    this.buttonIDPlus = ++U.c;
+    this.buttonIDMinus = ++U.c;
   }
   
-  public void toBytes(ByteBuf paramByteBuf) {
-    ByteBufUtils.writeUTF8String(paramByteBuf, this.c.toString());
-    ByteBufUtils.writeItemStack(paramByteBuf, this.a);
-  }
-  
-  public static class a implements IMessageHandler<ah, IMessage> {
-    public IMessage a(ah param1ah, MessageContext param1MessageContext) {
-      try {
-        if (param1ah.b)
-          try {
-            if (param1MessageContext.side == Side.SERVER) {
-              FMLCommonHandler.instance().getMinecraftServerInstance().func_152344_a(() -> {
-                    InventoryPlayer inventoryPlayer = (FMLCommonHandler.instance().getMinecraftServerInstance().func_184103_al().func_177451_a(param1ah.c)).field_71071_by;
-                    for (byte b = 0; b < inventoryPlayer.func_70302_i_(); b++) {
-                      ItemStack itemStack = inventoryPlayer.func_70301_a(b);
-                      try {
-                        if (itemStack.func_77973_b().equals(param1ah.a.func_77973_b())) {
-                          itemStack.func_190918_g(param1ah.a.func_190916_E());
-                          break;
-                        } 
-                      } catch (NullPointerException nullPointerException) {
-                        throw a(null);
-                      } 
-                    } 
-                  });
-              return null;
-            } 
-            System.out.println("recieved an unvalid message @RemoveItems :(");
-            return null;
-          } catch (NullPointerException nullPointerException) {
-            throw a(null);
-          }  
-      } catch (NullPointerException nullPointerException) {
-        throw a(null);
-      } 
-      System.out.println("recieved an unvalid message @RemoveItems :(");
-      return null;
-    }
-    
-    private static NullPointerException a(NullPointerException param1NullPointerException) {
-      return param1NullPointerException;
-    }
+  public static int a() {
+    return (values()).length - 2;
   }
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\ah.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\ah.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

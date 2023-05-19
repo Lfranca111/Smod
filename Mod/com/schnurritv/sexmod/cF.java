@@ -5,10 +5,10 @@ import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class cF extends ModelBase implements b0 {
+public class cf extends ModelBase implements o {
   private final ModelRenderer a = new ModelRenderer(this);
   
-  public cF() {
+  public cf() {
     this.a.func_78793_a(-5.0F, 2.5F, 0.0F);
     this.a.field_78804_l.add(new ModelBox(this.a, 0, 0, -2.0F, -6.0F, 0.0F, 2, 6, 2, 0.0F, false));
   }
@@ -29,7 +29,7 @@ public class cF extends ModelBase implements b0 {
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\cF.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\cf.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

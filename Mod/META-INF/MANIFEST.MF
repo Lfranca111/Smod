@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: SexMod 1.12.2 new forge
-Implementation-Version: 1.8.0
+Implementation-Version: 1.9.0
 Specification-Vendor: examplemodsareus
 Specification-Title: examplemod
-Implementation-Timestamp: 2023-02-28T22:20:23+0100
+Implementation-Timestamp: 2023-04-13T20:14:02+0200
 Specification-Version: 1
 Implementation-Vendor: examplemodsareus
 

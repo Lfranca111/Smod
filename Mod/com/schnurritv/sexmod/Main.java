@@ -18,7 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 
-@Mod(modid = "sexmod", name = "SchnurriTV's Sex Mod", version = "1.8.0", dependencies = "after:geckolib")
+@Mod(modid = "sexmod", name = "SchnurriTV's Sex Mod", version = "1.9.0", dependencies = "after:geckolib")
 public class Main {
   @Instance
   public static Main instance;
@@ -47,25 +47,26 @@ public class Main {
   @EventHandler
   public static void clearEntityList(FMLServerStoppedEvent paramFMLServerStoppedEvent) {
     try {
-      Q.f().clear();
-      bF.a();
-      aD.af.clear();
+      bS.l().clear();
+      s.a();
+      b3.az.clear();
       if (FMLCommonHandler.instance().getSide() == Side.CLIENT)
         clientReset(); 
-    } catch (NullPointerException nullPointerException) {
+    } catch (RuntimeException runtimeException) {
       throw a(null);
     } 
   }
   
   @EventHandler
   public static void clearEntityList(FMLServerStartingEvent paramFMLServerStartingEvent) {
-    paramFMLServerStartingEvent.registerServerCommand((ICommand)B.a);
+    paramFMLServerStartingEvent.registerServerCommand((ICommand)a3.a);
+    paramFMLServerStartingEvent.registerServerCommand((ICommand)bt.a);
   }
   
   @SideOnly(Side.CLIENT)
   static void clientReset() {
-    bX.a();
-    bQ.b();
+    aP.b();
+    bM.c();
   }
   
   @SideOnly(Side.CLIENT)
@@ -203,11 +204,11 @@ public class Main {
     //   253: aload #4
     //   255: invokevirtual close : ()V
     //   258: iconst_1
-    //   259: putstatic com/schnurritv/sexmod/b9.a : Z
+    //   259: putstatic com/schnurritv/sexmod/aL.b : Z
     //   262: iconst_0
-    //   263: putstatic com/schnurritv/sexmod/aM.a : Z
+    //   263: putstatic com/schnurritv/sexmod/bE.a : Z
     //   266: iconst_1
-    //   267: putstatic com/schnurritv/sexmod/U.ab : Z
+    //   267: putstatic com/schnurritv/sexmod/bo.ab : Z
     //   270: return
     //   271: aload_3
     //   272: ldc 'shouldGenBuildings'
@@ -233,7 +234,7 @@ public class Main {
     //   313: invokestatic a : (Ljava/lang/Throwable;)Ljava/lang/Throwable;
     //   316: athrow
     //   317: iconst_0
-    //   318: putstatic com/schnurritv/sexmod/b9.a : Z
+    //   318: putstatic com/schnurritv/sexmod/aL.b : Z
     //   321: bipush #116
     //   323: aload_3
     //   324: iload #5
@@ -246,7 +247,7 @@ public class Main {
     //   339: invokestatic a : (Ljava/lang/Throwable;)Ljava/lang/Throwable;
     //   342: athrow
     //   343: iconst_0
-    //   344: putstatic com/schnurritv/sexmod/aM.a : Z
+    //   344: putstatic com/schnurritv/sexmod/bE.a : Z
     //   347: bipush #116
     //   349: aload_3
     //   350: iload #6
@@ -259,7 +260,7 @@ public class Main {
     //   365: invokestatic a : (Ljava/lang/Throwable;)Ljava/lang/Throwable;
     //   368: athrow
     //   369: iconst_0
-    //   370: putstatic com/schnurritv/sexmod/U.ab : Z
+    //   370: putstatic com/schnurritv/sexmod/bo.ab : Z
     //   373: return
     // Exception table:
     //   from	to	target	type
@@ -282,7 +283,7 @@ public class Main {
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\Main.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\Main.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

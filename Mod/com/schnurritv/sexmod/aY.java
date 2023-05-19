@@ -1,349 +1,205 @@
 package com.schnurritv.sexmod;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.UUID;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import java.io.IOException;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 
-public class ay {
-  public static final int c = 30;
+public class ay extends GuiScreen {
+  static final float a = 100.0F;
   
-  BlockPos b;
+  static final float e = 15.0F;
   
-  a e;
+  static final float k = 5.0F;
   
-  HashSet<BlockPos> f;
+  static final float d = 0.5F;
   
-  List<aD> d = new ArrayList<>();
+  static final float j = 0.5F;
   
-  EnumFacing a = EnumFacing.NORTH;
+  static final ResourceLocation c = new ResourceLocation("sexmod", "textures/gui/command.png");
   
-  public ay(BlockPos paramBlockPos, a parama, HashSet<BlockPos> paramHashSet) {
-    this.b = paramBlockPos;
-    this.e = parama;
-    this.f = paramHashSet;
+  float l = 0.0F;
+  
+  float b = 0.0F;
+  
+  float g = 0.0F;
+  
+  float h = 0.0F;
+  
+  float f = 0.0F;
+  
+  bf i;
+  
+  public ay(bf parambf) {
+    this.i = parambf;
   }
   
-  public ay(BlockPos paramBlockPos, a parama, HashSet<BlockPos> paramHashSet, EnumFacing paramEnumFacing) {
-    this.b = paramBlockPos;
-    this.e = parama;
-    this.f = paramHashSet;
-    this.a = paramEnumFacing;
-  }
-  
-  public EnumFacing d() {
-    return this.a;
-  }
-  
-  public BlockPos f() {
-    return this.b;
-  }
-  
-  public a b() {
-    return this.e;
-  }
-  
-  public HashSet<BlockPos> e() {
-    return this.f;
-  }
-  
-  public void c(BlockPos paramBlockPos) {
-    this.f.add(paramBlockPos);
-  }
-  
-  public void a(HashSet<BlockPos> paramHashSet) {
-    this.f.addAll(paramHashSet);
-  }
-  
-  public void a(BlockPos paramBlockPos) {
-    this.f.remove(paramBlockPos);
-  }
-  
-  public void b(HashSet<BlockPos> paramHashSet) {
+  public void func_146281_b() {
     try {
-      if (!paramHashSet.isEmpty())
-        this.f.removeAll(paramHashSet); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-  }
-  
-  public boolean b(BlockPos paramBlockPos) {
-    return this.f.contains(paramBlockPos);
-  }
-  
-  public boolean a(aD paramaD) {
-    try {
-      if (this.e.a <= this.d.size())
-        return false; 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    this.d.add(paramaD);
-    return true;
-  }
-  
-  public List<aD> c() {
-    return this.d;
-  }
-  
-  public void a() {
-    for (aD aD : this.d) {
-      try {
-        if (aD.B() == null) {
-          aD.func_189654_d(false);
-          aD.field_70145_X = false;
-          aD.b(b1.NULL);
-          aD.func_184212_Q().func_187227_b(Q.c, Boolean.valueOf(false));
-        } 
-      } catch (NullPointerException nullPointerException) {
-        throw a(null);
-      } 
-    } 
-    this.d.clear();
-  }
-  
-  public void b(aD paramaD) {
-    this.d.remove(paramaD);
-  }
-  
-  public boolean g() {
-    try {
-    
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    return (this.e.a <= this.d.size());
-  }
-  
-  public boolean c(aD paramaD) {
-    return this.d.contains(paramaD);
-  }
-  
-  public static HashSet<BlockPos> a(World paramWorld, BlockPos paramBlockPos, UUID paramUUID) {
-    BlockPos blockPos1;
-    for (blockPos1 = paramBlockPos; !b(paramWorld, blockPos1); blockPos1 = paramBlockPos.func_177977_b());
-    BlockPos blockPos2;
-    for (blockPos2 = paramBlockPos; !c(paramWorld, blockPos2); blockPos2 = blockPos2.func_177984_a());
-    HashSet<BlockPos> hashSet1 = new HashSet();
-    int i = blockPos2.func_177956_o() - blockPos1.func_177956_o();
-    byte b = 0;
-    try {
-      while (b <= i) {
-        hashSet1.add(blockPos1.func_177982_a(0, b, 0));
-        b++;
-      } 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    HashSet<BlockPos> hashSet2 = a(paramWorld, blockPos1);
-    HashSet<BlockPos> hashSet3 = new HashSet();
-    for (BlockPos blockPos : hashSet2) {
-      try {
-        if (blockPos.func_177958_n() == blockPos1.func_177958_n())
-          try {
-            if (blockPos.func_177952_p() == blockPos1.func_177952_p())
-              hashSet3.add(blockPos); 
-          } catch (NullPointerException nullPointerException) {
-            throw a(null);
-          }  
-      } catch (NullPointerException nullPointerException) {
-        throw a(null);
-      } 
-    } 
-    for (BlockPos blockPos : hashSet3)
-      hashSet2.remove(blockPos); 
-    hashSet1.addAll(hashSet2);
-    HashSet<BlockPos> hashSet4 = new HashSet();
-    for (BlockPos blockPos : hashSet1) {
-      for (ay ay2 : bF.m(paramUUID)) {
-        HashSet<BlockPos> hashSet = ay2.e();
+      super.func_146281_b();
+      if (this.h == 0.0F)
         try {
-          if (hashSet.contains(blockPos)) {
-            hashSet4.add(blockPos);
-            break;
-          } 
-        } catch (NullPointerException nullPointerException) {
-          throw a(null);
-        } 
-      } 
-    } 
-    hashSet1.removeAll(hashSet4);
-    ay ay1 = new ay(blockPos1, a.FALL_TREE, hashSet1);
-    bF.b(paramUUID, ay1);
-    return hashSet1;
-  }
-  
-  static boolean c(World paramWorld, BlockPos paramBlockPos) {
-    Block block = paramWorld.func_180495_p(paramBlockPos.func_177984_a()).func_177230_c();
-    try {
-    
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    return !(block instanceof net.minecraft.block.BlockLog);
-  }
-  
-  static boolean b(World paramWorld, BlockPos paramBlockPos) {
-    IBlockState iBlockState = paramWorld.func_180495_p(paramBlockPos.func_177977_b());
-    try {
-      if (!(iBlockState instanceof net.minecraft.block.BlockLog))
-        try {
-          if (iBlockState.func_185904_a() != Material.field_151579_a);
+          if (this.f == 0.0F)
+            try {
+              if (this.b == 0.0F)
+                return; 
+            } catch (NullPointerException nullPointerException) {
+              throw a(null);
+            }  
         } catch (NullPointerException nullPointerException) {
           throw a(null);
         }  
     } catch (NullPointerException nullPointerException) {
       throw a(null);
     } 
+    try {
+      if (this.b > 0.0F) {
+        b();
+        return;
+      } 
+    } catch (NullPointerException nullPointerException) {
+      throw a(null);
+    } 
+    try {
+      if (this.h > this.f) {
+        d();
+      } else {
+        c();
+      } 
+    } catch (NullPointerException nullPointerException) {
+      throw a(null);
+    } 
+  }
+  
+  void d() {
+    this.i.f((Minecraft.func_71410_x()).field_71439_g.getPersistentID());
+  }
+  
+  void c() {
+    this.i.a((Minecraft.func_71410_x()).field_71439_g.getPersistentID());
+  }
+  
+  void b() {
+    try {
+      if (this.i.n() != null)
+        return; 
+    } catch (NullPointerException nullPointerException) {
+      throw a(null);
+    } 
+    this.i.c(m.START_THROWING);
+  }
+  
+  void a() {
+    this.i.f((Minecraft.func_71410_x()).field_71439_g.getPersistentID());
+  }
+  
+  public void func_146282_l() throws IOException {
+    try {
+      if (ClientProxy.keyBindings[0].func_151463_i() == Keyboard.getEventKey())
+        try {
+          if (!Keyboard.getEventKeyState()) {
+            (Minecraft.func_71410_x()).field_71439_g.func_71053_j();
+            return;
+          } 
+        } catch (IOException iOException) {
+          throw a(null);
+        }  
+    } catch (IOException iOException) {
+      throw a(null);
+    } 
+    super.func_146282_l();
+  }
+  
+  public void func_73863_a(int paramInt1, int paramInt2, float paramFloat) {
+    super.func_73863_a(paramInt1, paramInt2, paramFloat);
+    GL11.glEnable(3042);
+    OpenGlHelper.func_148821_a(770, 771, 1, 0);
+    GL11.glBlendFunc(770, 771);
+    try {
+      this.l = Math.min(1.0F, this.l + this.field_146297_k.func_193989_ak() / 5.0F);
+    } catch (NullPointerException nullPointerException) {}
+    float f1 = (float)a(this.l);
+    float f2 = (1.0F - f1) * 100.0F;
+    try {
+    
+    } catch (NullPointerException nullPointerException) {
+      throw a(null);
+    } 
+    try {
+      this.b += ((paramInt1 < this.field_146294_l / 2) ? true : -1) * this.field_146297_k.func_193989_ak();
+    } catch (NullPointerException nullPointerException) {
+      throw a(null);
+    } 
+    try {
+      this.g += ((paramInt1 > this.field_146294_l / 2) ? true : -1) * this.field_146297_k.func_193989_ak();
+    } catch (NullPointerException nullPointerException) {
+      throw a(null);
+    } 
+    try {
+      this.h += ((paramInt2 < this.field_146295_m / 2 - 1) ? true : -1) * this.field_146297_k.func_193989_ak();
+    } catch (NullPointerException nullPointerException) {
+      throw a(null);
+    } 
+    try {
+      this.f += ((paramInt2 > this.field_146295_m / 2) ? true : -1) * this.field_146297_k.func_193989_ak();
+      this.b = aH.b(this.b, 0.0F, 1.0F);
+      this.g = aH.b(this.g, 0.0F, 1.0F);
+      this.h = aH.b(this.h, 0.0F, 1.0F);
+      this.f = aH.b(this.f, 0.0F, 1.0F);
+      GlStateManager.func_179094_E();
+      GlStateManager.func_179109_b(this.field_146294_l / 2.0F, this.field_146295_m / 2.0F, 0.0F);
+      GlStateManager.func_179152_a(f1, f1, f1);
+      this.field_146297_k.field_71446_o.func_110577_a(c);
+      GlStateManager.func_179094_E();
+      GlStateManager.func_179152_a(1.0F + this.b * 0.5F, 1.0F + this.b * 0.5F, 1.0F);
+      func_175174_a(-62.0F + f2 - this.b * 15.0F, f2 - 32.0F, 0, 0, 64, 64);
+      func_175174_a(-62.0F + f2 - this.b * 15.0F, f2 - 32.0F, 64, 128, 64, 64);
+      GlStateManager.func_179121_F();
+      GlStateManager.func_179094_E();
+      GlStateManager.func_179152_a(1.0F - this.g, 1.0F - this.g, 1.0F);
+      func_175174_a(-2.0F - f2 + this.g * 32.0F, -f2 - 32.0F, 0, 0, 64, 64);
+      func_175174_a(-2.0F - f2 + this.g * 32.0F, -f2 - 32.0F, 0, 128, 64, 64);
+      GlStateManager.func_179121_F();
+      if (this.g > 0.0F) {
+        GlStateManager.func_179094_E();
+        GlStateManager.func_179152_a(-1.0F + this.g + 1.0F + this.h * 0.5F, -1.0F + this.g + 1.0F + this.h * 0.5F, 1.0F);
+        func_175174_a(-2.0F - f2 + this.h * 5.0F, -f2 - 64.0F - this.h * 5.0F / 2.0F, 0, 0, 64, 64);
+        func_175174_a(-2.0F - f2 + this.h * 5.0F, -f2 - 64.0F - this.h * 5.0F / 2.0F, 128, 128, 64, 64);
+        GlStateManager.func_179121_F();
+        GlStateManager.func_179094_E();
+        GlStateManager.func_179152_a(-1.0F + this.g + 1.0F + this.f * 0.5F, -1.0F + this.g + 1.0F + this.f * 0.5F, 1.0F);
+        func_175174_a(-2.0F - f2 + this.f * 5.0F, -f2 + this.f * 5.0F / 2.0F, 0, 0, 64, 64);
+        func_175174_a(-2.0F - f2 + this.f * 5.0F, -f2 + this.f * 5.0F / 2.0F, 192, 128, 64, 64);
+        GlStateManager.func_179121_F();
+      } 
+    } catch (NullPointerException nullPointerException) {
+      throw a(null);
+    } 
+    GlStateManager.func_179121_F();
+    GL11.glDisable(3042);
+  }
+  
+  double a(double paramDouble) {
+    double d1 = 1.70158D;
+    double d2 = d1 + 1.0D;
+    return 1.0D + d2 * Math.pow(paramDouble - 1.0D, 3.0D) + d1 * Math.pow(paramDouble - 1.0D, 2.0D);
+  }
+  
+  public boolean func_73868_f() {
     return false;
   }
   
-  static HashSet<BlockPos> a(World paramWorld, BlockPos paramBlockPos) {
-    return a(paramWorld, paramBlockPos, new HashSet<>());
-  }
-  
-  static HashSet<BlockPos> a(World paramWorld, BlockPos paramBlockPos, HashSet<BlockPos> paramHashSet) {
-    try {
-      if (paramHashSet.contains(paramBlockPos))
-        return new HashSet<>(); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      paramHashSet.add(paramBlockPos);
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(1, 0, 0)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(1, 0, 0), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(-1, 0, 0)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(-1, 0, 0), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(0, 0, 1)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(0, 0, 1), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(0, 0, -1)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(0, 0, -1), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(1, 0, 1)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(1, 0, 1), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(-1, 0, -1)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(-1, 0, -1), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(-1, 0, 1)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(-1, 0, 1), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(1, 0, -1)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(1, 0, -1), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(0, 1, 0)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(0, 1, 0), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(1, 1, 0)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(1, 1, 0), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(-1, 1, 0)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(-1, 1, 0), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(0, 1, 1)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(0, 1, 1), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(0, 1, -1)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(0, 1, -1), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(1, 1, 1)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(1, 1, 1), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(-1, 1, -1)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(-1, 1, -1), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(-1, 1, 1)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(-1, 1, 1), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    try {
-      if (paramWorld.func_180495_p(paramBlockPos.func_177982_a(1, 1, -1)).func_177230_c() instanceof net.minecraft.block.BlockLog)
-        paramHashSet.addAll(a(paramWorld, paramBlockPos.func_177982_a(1, 1, -1), paramHashSet)); 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    return paramHashSet;
-  }
-  
-  private static NullPointerException a(NullPointerException paramNullPointerException) {
-    return paramNullPointerException;
-  }
-  
-  public enum a {
-    FALL_TREE(1),
-    MINE(3);
-    
-    int a;
-    
-    a(int param1Int1) {
-      this.a = param1Int1;
-    }
-    
-    int a() {
-      return this.a;
-    }
+  private static Exception a(Exception paramException) {
+    return paramException;
   }
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\ay.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\ay.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

@@ -12469,6 +12469,11 @@
 							"easing": "easeInOutSine"
 						}
 					}
+				},
+				"dd": {
+					"position": {
+						"vector": [0, -6, 0]
+					}
 				}
 			}
 		},

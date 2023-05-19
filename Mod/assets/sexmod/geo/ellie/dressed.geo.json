@@ -219,6 +219,11 @@
 					]
 				},
 				{
+					"name": "customHandL",
+					"parent": "lowerArmL",
+					"pivot": [5.38968, 16.90338, 0.04769]
+				},
+				{
 					"name": "offhand",
 					"parent": "lowerArmL",
 					"pivot": [5.66733, 14.41962, 2.24571]
@@ -2307,6 +2312,11 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "customHandR",
+					"parent": "lowerArmR",
+					"pivot": [-5.38968, 16.90338, 0.04769]
 				},
 				{
 					"name": "bracelet3",
@@ -4505,6 +4515,11 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "customHead",
+					"parent": "head",
+					"pivot": [0, 36.25, 0]
 				},
 				{
 					"name": "heart",
@@ -17062,6 +17077,11 @@
 					]
 				},
 				{
+					"name": "customShoeR",
+					"parent": "shinR",
+					"pivot": [-2.00286, -0.06914, 0.025]
+				},
+				{
 					"name": "shoe2",
 					"parent": "shinR",
 					"pivot": [0.15602, -1.21916, 0.23953],
@@ -18145,6 +18165,11 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "customShoeL",
+					"parent": "shinL",
+					"pivot": [2.00286, -0.06914, 0.025]
 				},
 				{
 					"name": "shoe3",

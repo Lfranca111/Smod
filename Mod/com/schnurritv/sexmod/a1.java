@@ -1,95 +1,74 @@
 package com.schnurritv.sexmod;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.world.World;
-import net.minecraftforge.items.ItemStackHandler;
+import io.netty.buffer.ByteBuf;
+import java.util.ArrayList;
+import java.util.UUID;
+import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public abstract class a1 extends Q implements IInventory {
-  public static final DataParameter<Boolean> F = EntityDataManager.func_187226_a(Q.class, DataSerializers.field_187198_h).func_187156_b().func_187161_a(111);
+public class a1 implements IMessage {
+  boolean b;
   
-  public ItemStackHandler G = new ItemStackHandler(27);
+  UUID a;
   
-  protected a1(World paramWorld) {
-    super(paramWorld);
+  Vec3d c;
+  
+  public a1() {}
+  
+  public a1(UUID paramUUID, Vec3d paramVec3d) {
+    this.a = paramUUID;
+    this.c = paramVec3d;
   }
   
-  protected void func_70088_a() {
-    super.func_70088_a();
-    this.m.func_187214_a(F, Boolean.valueOf(false));
+  public void fromBytes(ByteBuf paramByteBuf) {
+    this.a = UUID.fromString(ByteBufUtils.readUTF8String(paramByteBuf));
+    this.c = new Vec3d(paramByteBuf.readDouble(), paramByteBuf.readDouble(), paramByteBuf.readDouble());
+    this.b = true;
   }
   
-  public int func_70302_i_() {
-    return 27;
+  public void toBytes(ByteBuf paramByteBuf) {
+    ByteBufUtils.writeUTF8String(paramByteBuf, this.a.toString());
+    paramByteBuf.writeDouble(this.c.field_72450_a);
+    paramByteBuf.writeDouble(this.c.field_72448_b);
+    paramByteBuf.writeDouble(this.c.field_72449_c);
   }
   
-  public boolean func_191420_l() {
-    return false;
-  }
-  
-  public ItemStack func_70301_a(int paramInt) {
-    try {
-      if (paramInt >= this.G.getSlots())
-        return ItemStack.field_190927_a; 
-    } catch (NullPointerException nullPointerException) {
-      throw a(null);
-    } 
-    return this.G.getStackInSlot(paramInt);
-  }
-  
-  public ItemStack func_70298_a(int paramInt1, int paramInt2) {
-    return this.G.extractItem(paramInt1, paramInt2, false);
-  }
-  
-  public ItemStack func_70304_b(int paramInt) {
-    return this.G.extractItem(paramInt, this.G.getStackInSlot(paramInt).func_190916_E(), false);
-  }
-  
-  public void func_70299_a(int paramInt, ItemStack paramItemStack) {
-    this.G.setStackInSlot(paramInt, paramItemStack);
-  }
-  
-  public int func_70297_j_() {
-    return 64;
-  }
-  
-  public void func_70296_d() {}
-  
-  public boolean func_70300_a(EntityPlayer paramEntityPlayer) {
-    return true;
-  }
-  
-  public void func_174889_b(EntityPlayer paramEntityPlayer) {}
-  
-  public void func_174886_c(EntityPlayer paramEntityPlayer) {}
-  
-  public boolean func_94041_b(int paramInt, ItemStack paramItemStack) {
-    return true;
-  }
-  
-  public int func_174887_a_(int paramInt) {
-    return paramInt;
-  }
-  
-  public void func_174885_b(int paramInt1, int paramInt2) {}
-  
-  public int func_174890_g() {
-    return 0;
-  }
-  
-  public void func_174888_l() {}
-  
-  private static NullPointerException a(NullPointerException paramNullPointerException) {
-    return paramNullPointerException;
+  public static class a implements IMessageHandler<a1, IMessage> {
+    public IMessage a(a1 param1a1, MessageContext param1MessageContext) {
+      try {
+        if (!param1a1.b) {
+          System.out.println("received an invalid message @SetNewHome :(");
+          return null;
+        } 
+      } catch (RuntimeException runtimeException) {
+        throw a(null);
+      } 
+      FMLCommonHandler.instance().getMinecraftServerInstance().func_152344_a(() -> {
+            ArrayList<bS> arrayList = bS.f(param1a1.a);
+            try {
+              if (arrayList.isEmpty())
+                return; 
+            } catch (RuntimeException runtimeException) {
+              throw a(null);
+            } 
+            for (bS bS : arrayList)
+              bS.f = new Vec3d(param1a1.c.field_72450_a, Math.floor(param1a1.c.field_72448_b), param1a1.c.field_72449_c); 
+          });
+      return null;
+    }
+    
+    private static RuntimeException a(RuntimeException param1RuntimeException) {
+      return param1RuntimeException;
+    }
   }
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\a1.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\a1.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

@@ -1,252 +1,163 @@
 package com.schnurritv.sexmod;
 
-import java.util.HashMap;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.Base64;
+import java.util.stream.Collectors;
+import javax.imageio.ImageIO;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistryEntry;
+import software.bernie.geckolib3.geo.render.built.GeoBone;
+import software.bernie.geckolib3.geo.render.built.GeoCube;
+import software.bernie.geckolib3.geo.render.built.GeoModel;
+import software.bernie.geckolib3.renderers.geo.GeoItemRenderer;
 
-public class c {
-  public static final SoundEvent[] MISC_PLOB = new SoundEvent[1];
-  
-  public static final SoundEvent[] MISC_BELLJINGLE = new SoundEvent[1];
-  
-  public static final SoundEvent[] MISC_BEDRUSTLE = new SoundEvent[2];
-  
-  public static final SoundEvent[] MISC_SLAP = new SoundEvent[2];
-  
-  public static final SoundEvent[] MISC_TOUCH = new SoundEvent[2];
-  
-  public static final SoundEvent[] MISC_POUNDING = new SoundEvent[35];
-  
-  public static final SoundEvent[] MISC_SMALLINSERTS = new SoundEvent[5];
-  
-  public static final SoundEvent[] MISC_INSERTS = new SoundEvent[5];
-  
-  public static final SoundEvent[] MISC_CUMINFLATION = new SoundEvent[1];
-  
-  public static final SoundEvent[] MISC_SCREAM = new SoundEvent[2];
-  
-  public static final SoundEvent[] MISC_FART = new SoundEvent[3];
-  
-  public static final SoundEvent[] MISC_JUMP = new SoundEvent[1];
-  
-  public static final SoundEvent[] MISC_EAT = new SoundEvent[3];
-  
-  public static final SoundEvent[] MISC_SLIDE = new SoundEvent[7];
-  
-  public static final SoundEvent[] GIRLS_JENNY_AFTERSESSIONMOAN = new SoundEvent[5];
-  
-  public static final SoundEvent[] GIRLS_JENNY_AHH = new SoundEvent[10];
-  
-  public static final SoundEvent[] GIRLS_JENNY_BJMOAN = new SoundEvent[13];
-  
-  public static final SoundEvent[] GIRLS_JENNY_GIGGLE = new SoundEvent[5];
-  
-  public static final SoundEvent[] GIRLS_JENNY_HAPPYOH = new SoundEvent[3];
-  
-  public static final SoundEvent[] GIRLS_JENNY_HEAVYBREATHING = new SoundEvent[8];
-  
-  public static final SoundEvent[] GIRLS_JENNY_HMPH = new SoundEvent[5];
-  
-  public static final SoundEvent[] GIRLS_JENNY_HUH = new SoundEvent[2];
-  
-  public static final SoundEvent[] GIRLS_JENNY_LIGHTBREATHING = new SoundEvent[12];
-  
-  public static final SoundEvent[] GIRLS_JENNY_LIPSOUND = new SoundEvent[10];
-  
-  public static final SoundEvent[] GIRLS_JENNY_MMM = new SoundEvent[9];
-  
-  public static final SoundEvent[] GIRLS_JENNY_MOAN = new SoundEvent[8];
-  
-  public static final SoundEvent[] GIRLS_JENNY_SADOH = new SoundEvent[2];
-  
-  public static final SoundEvent[] GIRLS_JENNY_SIGH = new SoundEvent[2];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_AFTERSESSIONMOAN = new SoundEvent[5];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_AHH = new SoundEvent[10];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_BJMOAN = new SoundEvent[13];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_GIGGLE = new SoundEvent[5];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_HAPPYOH = new SoundEvent[3];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_HEAVYBREATHING = new SoundEvent[8];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_HMPH = new SoundEvent[4];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_HUH = new SoundEvent[2];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_LIGHTBREATHING = new SoundEvent[8];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_LIPSOUND = new SoundEvent[10];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_MMM = new SoundEvent[9];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_MOAN = new SoundEvent[9];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_SADOH = new SoundEvent[2];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_SIGH = new SoundEvent[2];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_COMETOMOMMY = new SoundEvent[2];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_GOODBOY = new SoundEvent[2];
-  
-  public static final SoundEvent[] GIRLS_ELLIE_MOMMYHORNY = new SoundEvent[2];
-  
-  public static final SoundEvent[] GIRLS_BIA_AHH = new SoundEvent[8];
-  
-  public static final SoundEvent[] GIRLS_BIA_BJMOAN = new SoundEvent[5];
-  
-  public static final SoundEvent[] GIRLS_BIA_BREATH = new SoundEvent[4];
-  
-  public static final SoundEvent[] GIRLS_BIA_GIGGLE = new SoundEvent[3];
-  
-  public static final SoundEvent[] GIRLS_BIA_HEY = new SoundEvent[4];
-  
-  public static final SoundEvent[] GIRLS_BIA_HUH = new SoundEvent[3];
-  
-  public static final SoundEvent[] GIRLS_BIA_MMM = new SoundEvent[8];
-  
-  public static final SoundEvent[] GIRLS_LUNA_AHH = new SoundEvent[18];
-  
-  public static final SoundEvent[] GIRLS_LUNA_CUTENYA = new SoundEvent[12];
-  
-  public static final SoundEvent[] GIRLS_LUNA_HAPPYOH = new SoundEvent[8];
-  
-  public static final SoundEvent[] GIRLS_LUNA_HMPH = new SoundEvent[6];
-  
-  public static final SoundEvent[] GIRLS_LUNA_HORNINYA = new SoundEvent[10];
-  
-  public static final SoundEvent[] GIRLS_LUNA_HUH = new SoundEvent[5];
-  
-  public static final SoundEvent[] GIRLS_LUNA_LIGHTBREATHING = new SoundEvent[25];
-  
-  public static final SoundEvent[] GIRLS_LUNA_MMM = new SoundEvent[8];
-  
-  public static final SoundEvent[] GIRLS_LUNA_MOAN = new SoundEvent[10];
-  
-  public static final SoundEvent[] GIRLS_LUNA_SADOH = new SoundEvent[7];
-  
-  public static final SoundEvent[] GIRLS_LUNA_SIGH = new SoundEvent[8];
-  
-  public static final SoundEvent[] GIRLS_LUNA_SINGING = new SoundEvent[8];
-  
-  public static final SoundEvent[] GIRLS_LUNA_GIGGLE = new SoundEvent[15];
-  
-  public static final SoundEvent[] GIRLS_LUNA_OUU = new SoundEvent[13];
-  
-  public static final SoundEvent[] GIRLS_LUNA_OWO = new SoundEvent[8];
-  
-  public static final SoundEvent[] GIRLS_ALLIE_AFTERSESSIONMOAN = new SoundEvent[4];
-  
-  public static final SoundEvent[] GIRLS_ALLIE_AHH = new SoundEvent[10];
-  
-  public static final SoundEvent[] GIRLS_ALLIE_BJMOAN = new SoundEvent[14];
-  
-  public static final SoundEvent[] GIRLS_ALLIE_GIGGLE = new SoundEvent[5];
-  
-  public static final SoundEvent[] GIRLS_ALLIE_HAPPYOH = new SoundEvent[3];
-  
-  public static final SoundEvent[] GIRLS_ALLIE_HEAVYBREATHING = new SoundEvent[8];
-  
-  public static final SoundEvent[] GIRLS_ALLIE_HMPH = new SoundEvent[5];
-  
-  public static final SoundEvent[] GIRLS_ALLIE_HUH = new SoundEvent[2];
-  
-  public static final SoundEvent[] GIRLS_ALLIE_LIGHTBREATHING = new SoundEvent[11];
-  
-  public static final SoundEvent[] GIRLS_ALLIE_LIPSOUND = new SoundEvent[14];
-  
-  public static final SoundEvent[] GIRLS_ALLIE_MMM = new SoundEvent[10];
-  
-  public static final SoundEvent[] GIRLS_ALLIE_MOAN = new SoundEvent[8];
-  
-  public static final SoundEvent[] GIRLS_ALLIE_SADOH = new SoundEvent[2];
-  
-  public static final SoundEvent[] GIRLS_ALLIE_SIGH = new SoundEvent[2];
-  
-  public static final SoundEvent[] GIRLS_ALLIE_SCAWY = new SoundEvent[3];
-  
-  public static final SoundEvent[] GIRLS_KOBOLD_BJMOAN = new SoundEvent[10];
-  
-  public static final SoundEvent[] GIRLS_KOBOLD_GIGGLE = new SoundEvent[4];
-  
-  public static final SoundEvent[] GIRLS_KOBOLD_HAA = new SoundEvent[7];
-  
-  public static final SoundEvent[] GIRLS_KOBOLD_HEYMASTER = new SoundEvent[6];
-  
-  public static final SoundEvent[] GIRLS_KOBOLD_INTERESTED = new SoundEvent[3];
-  
-  public static final SoundEvent[] GIRLS_KOBOLD_LIGHTBREATHING = new SoundEvent[12];
-  
-  public static final SoundEvent[] GIRLS_KOBOLD_MASTER = new SoundEvent[6];
-  
-  public static final SoundEvent[] GIRLS_KOBOLD_MOAN = new SoundEvent[10];
-  
-  public static final SoundEvent[] GIRLS_KOBOLD_ORGASM = new SoundEvent[4];
-  
-  public static final SoundEvent[] GIRLS_KOBOLD_SAD = new SoundEvent[3];
-  
-  public static final SoundEvent[] GIRLS_KOBOLD_YEP = new SoundEvent[7];
-  
-  private static final SoundEvent[][] soundCategorys = new SoundEvent[][] { 
-      MISC_PLOB, MISC_BELLJINGLE, MISC_BEDRUSTLE, MISC_SLAP, MISC_TOUCH, MISC_POUNDING, MISC_SMALLINSERTS, MISC_INSERTS, MISC_CUMINFLATION, MISC_SCREAM, 
-      MISC_FART, MISC_JUMP, MISC_EAT, MISC_SLIDE, GIRLS_JENNY_AFTERSESSIONMOAN, GIRLS_JENNY_AHH, GIRLS_JENNY_BJMOAN, GIRLS_JENNY_GIGGLE, GIRLS_JENNY_HAPPYOH, GIRLS_JENNY_HEAVYBREATHING, 
-      GIRLS_JENNY_HMPH, GIRLS_JENNY_HUH, GIRLS_JENNY_LIGHTBREATHING, GIRLS_JENNY_LIPSOUND, GIRLS_JENNY_MMM, GIRLS_JENNY_MOAN, GIRLS_JENNY_SADOH, GIRLS_JENNY_SIGH, GIRLS_ELLIE_AFTERSESSIONMOAN, GIRLS_ELLIE_AHH, 
-      GIRLS_ELLIE_BJMOAN, GIRLS_ELLIE_GIGGLE, GIRLS_ELLIE_HAPPYOH, GIRLS_ELLIE_HEAVYBREATHING, GIRLS_ELLIE_HMPH, GIRLS_ELLIE_HUH, GIRLS_ELLIE_LIGHTBREATHING, GIRLS_ELLIE_LIPSOUND, GIRLS_ELLIE_MMM, GIRLS_ELLIE_MOAN, 
-      GIRLS_ELLIE_SADOH, GIRLS_ELLIE_SIGH, GIRLS_ELLIE_COMETOMOMMY, GIRLS_ELLIE_GOODBOY, GIRLS_ELLIE_MOMMYHORNY, GIRLS_BIA_AHH, GIRLS_BIA_BJMOAN, GIRLS_BIA_BREATH, GIRLS_BIA_GIGGLE, GIRLS_BIA_HEY, 
-      GIRLS_BIA_HUH, GIRLS_BIA_MMM, GIRLS_LUNA_AHH, GIRLS_LUNA_CUTENYA, GIRLS_LUNA_HAPPYOH, GIRLS_LUNA_HMPH, GIRLS_LUNA_HORNINYA, GIRLS_LUNA_HUH, GIRLS_LUNA_LIGHTBREATHING, GIRLS_LUNA_MMM, 
-      GIRLS_LUNA_MOAN, GIRLS_LUNA_SADOH, GIRLS_LUNA_SIGH, GIRLS_LUNA_SINGING, GIRLS_LUNA_GIGGLE, GIRLS_LUNA_OUU, GIRLS_LUNA_OWO, GIRLS_ALLIE_AFTERSESSIONMOAN, GIRLS_ALLIE_AHH, GIRLS_ALLIE_BJMOAN, 
-      GIRLS_ALLIE_GIGGLE, GIRLS_ALLIE_HAPPYOH, GIRLS_ALLIE_HEAVYBREATHING, GIRLS_ALLIE_HMPH, GIRLS_ALLIE_HUH, GIRLS_ALLIE_LIGHTBREATHING, GIRLS_ALLIE_LIPSOUND, GIRLS_ALLIE_MMM, GIRLS_ALLIE_MOAN, GIRLS_ALLIE_SADOH, 
-      GIRLS_ALLIE_SIGH, GIRLS_ALLIE_SCAWY, GIRLS_KOBOLD_BJMOAN, GIRLS_KOBOLD_GIGGLE, GIRLS_KOBOLD_HAA, GIRLS_KOBOLD_HEYMASTER, GIRLS_KOBOLD_INTERESTED, GIRLS_KOBOLD_LIGHTBREATHING, GIRLS_KOBOLD_MASTER, GIRLS_KOBOLD_MOAN, 
-      GIRLS_KOBOLD_ORGASM, GIRLS_KOBOLD_SAD, GIRLS_KOBOLD_YEP };
-  
-  public static final c INSTANCE = new c();
-  
-  static HashMap<SoundEvent, Integer> lastRandomSound = new HashMap<>();
-  
-  public static void a() {
-    for (byte b = 0; b < soundCategorys.length; b++) {
-      SoundEvent[] arrayOfSoundEvent = soundCategorys[b];
-      for (byte b1 = 0; b1 < arrayOfSoundEvent.length; b1++) {
-        String str2;
-        String str1 = INSTANCE.getClass().getDeclaredFields()[b].getName().toLowerCase().replace("_", ".");
+public class c extends GeoItemRenderer<al> {
+  Minecraft a = Minecraft.func_71410_x();
+  
+  static ResourceLocation b = null;
+  
+  public c() {
+    super(new H());
+  }
+  
+  ResourceLocation a() {
+    if (b == null)
+      try {
+        URL uRL1 = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + (Minecraft.func_71410_x()).field_71439_g.getPersistentID().toString().replace("-", ""));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(uRL1.openStream()));
+        String str1 = bufferedReader.lines().collect(Collectors.joining());
+        int i = str1.indexOf("\"value\" : ");
+        int j = i + 11;
+        StringBuilder stringBuilder1 = new StringBuilder();
+        byte b1 = 0;
         try {
-          str2 = str1.split("\\.")[2];
-        } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException) {
-          str2 = str1.split("\\.")[1];
+          while (str1.charAt(j + b1) != '"') {
+            stringBuilder1.append(str1.charAt(j + b1));
+            b1++;
+          } 
+        } catch (Exception exception) {
+          throw a(null);
         } 
-        arrayOfSoundEvent[b1] = a(str1 + "." + str2 + b1);
+        String str2 = new String(Base64.getDecoder().decode(stringBuilder1.toString()));
+        int k = str2.indexOf("\"url\" : ");
+        int m = k + 9;
+        StringBuilder stringBuilder2 = new StringBuilder();
+        byte b2 = 0;
+        try {
+          while (str2.charAt(m + b2) != '"') {
+            stringBuilder2.append(str2.charAt(m + b2));
+            b2++;
+          } 
+        } catch (Exception exception) {
+          throw a(null);
+        } 
+        URL uRL2 = new URL(stringBuilder2.toString());
+        BufferedImage bufferedImage1 = ImageIO.read(uRL2);
+        BufferedImage bufferedImage2 = ImageIO.read(this.a.func_110442_L().func_110536_a((new H()).b(new al())).func_110527_b());
+        for (byte b3 = 0; b3 < bufferedImage2.getWidth(); b3++) {
+          for (byte b = 0; b < bufferedImage2.getHeight(); b++) {
+            int n = bufferedImage1.getRGB(b3, b);
+            try {
+              if (n != 0)
+                bufferedImage2.setRGB(b3, b, n); 
+            } catch (Exception exception) {
+              throw a(null);
+            } 
+          } 
+        } 
+        b = (Minecraft.func_71410_x().func_175598_ae()).field_78724_e.func_110578_a("lamptex", new DynamicTexture(bufferedImage2));
+      } catch (Exception exception) {
+        b = (new H()).b(new al());
+      }  
+    return b;
+  }
+  
+  public void a(GeoModel paramGeoModel, al paramal, float paramFloat1, float paramFloat2, float paramFloat3, float paramFloat4, float paramFloat5) {
+    GlStateManager.func_179129_p();
+    GlStateManager.func_179091_B();
+    renderEarly(paramal, paramFloat1, paramFloat2, paramFloat3, paramFloat4, paramFloat5);
+    renderLate(paramal, paramFloat1, paramFloat2, paramFloat3, paramFloat4, paramFloat5);
+    BufferBuilder bufferBuilder = Tessellator.func_178181_a().func_178180_c();
+    bufferBuilder.func_181668_a(7, DefaultVertexFormats.field_181712_l);
+    for (GeoBone geoBone : paramGeoModel.topLevelBones)
+      a(bufferBuilder, paramal, geoBone, paramFloat2, paramFloat3, paramFloat4, paramFloat5); 
+    Tessellator.func_178181_a().func_78381_a();
+    renderAfter(paramal, paramFloat1, paramFloat2, paramFloat3, paramFloat4, paramFloat5);
+    GlStateManager.func_179101_C();
+    GlStateManager.func_179089_o();
+  }
+  
+  public void a(BufferBuilder paramBufferBuilder, al paramal, GeoBone paramGeoBone, float paramFloat1, float paramFloat2, float paramFloat3, float paramFloat4) {
+    try {
+      MATRIX_STACK.push();
+      MATRIX_STACK.translate(paramGeoBone);
+      MATRIX_STACK.moveToPivot(paramGeoBone);
+      MATRIX_STACK.rotate(paramGeoBone);
+      MATRIX_STACK.scale(paramGeoBone);
+      MATRIX_STACK.moveBackFromPivot(paramGeoBone);
+      this.a.field_71446_o.func_110577_a(a());
+      if (a(paramGeoBone.getName()))
+        b(paramBufferBuilder, paramal, paramGeoBone, paramFloat1, paramFloat2, paramFloat3, paramFloat4); 
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    MATRIX_STACK.pop();
+  }
+  
+  boolean a(String paramString) {
+    try {
+      if (!paramString.equals("leftArm"))
+        try {
+          if (!paramString.equals("rightArm"))
+            return true; 
+        } catch (RuntimeException runtimeException) {
+          throw a(null);
+        }  
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    try {
+      if (this.a.field_71439_g.getEntityData().func_74767_n("sexmodAllieInUse"))
+        try {
+          if (this.a.field_71474_y.field_74320_O == 0);
+        } catch (RuntimeException runtimeException) {
+          throw a(null);
+        }  
+    } catch (RuntimeException runtimeException) {
+      throw a(null);
+    } 
+    return false;
+  }
+  
+  void b(BufferBuilder paramBufferBuilder, al paramal, GeoBone paramGeoBone, float paramFloat1, float paramFloat2, float paramFloat3, float paramFloat4) {
+    if (!paramGeoBone.isHidden) {
+      for (GeoCube geoCube : paramGeoBone.childCubes) {
+        MATRIX_STACK.push();
+        GlStateManager.func_179094_E();
+        renderCube(paramBufferBuilder, geoCube, paramFloat1, paramFloat2, paramFloat3, paramFloat4);
+        GlStateManager.func_179121_F();
+        MATRIX_STACK.pop();
       } 
+      for (GeoBone geoBone : paramGeoBone.childBones)
+        a(paramBufferBuilder, paramal, geoBone, paramFloat1, paramFloat2, paramFloat3, paramFloat4); 
     } 
   }
   
-  public static SoundEvent a(String paramString) {
-    ResourceLocation resourceLocation = new ResourceLocation("sexmod", paramString);
-    SoundEvent soundEvent = new SoundEvent(resourceLocation);
-    soundEvent.setRegistryName(paramString);
-    ForgeRegistries.SOUND_EVENTS.register((IForgeRegistryEntry)soundEvent);
-    return soundEvent;
-  }
-  
-  public static SoundEvent a(SoundEvent[] paramArrayOfSoundEvent) {
-    int i;
-    lastRandomSound.putIfAbsent(paramArrayOfSoundEvent[0], Integer.valueOf(-69));
-    byte b = 0;
-    do {
-      i = bY.b.nextInt(paramArrayOfSoundEvent.length);
-    } while (++b < 10 && i == ((Integer)lastRandomSound.get(paramArrayOfSoundEvent[0])).intValue());
-    lastRandomSound.replace(paramArrayOfSoundEvent[0], Integer.valueOf(i));
-    return paramArrayOfSoundEvent[i];
+  private static Exception a(Exception paramException) {
+    return paramException;
   }
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\c.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\c.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */

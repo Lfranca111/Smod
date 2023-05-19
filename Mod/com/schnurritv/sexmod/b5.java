@@ -1,67 +1,55 @@
 package com.schnurritv.sexmod;
 
-import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.init.Biomes;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 
-public class b5 implements IMessage {
-  boolean a;
-  
-  boolean b;
-  
-  public b5(boolean paramBoolean) {
-    this.b = paramBoolean;
-    this.a = true;
+public class b5 {
+  public static void a() {
+    a("jenny", (Class)b8.class, bB.JENNY.npcID, 3286592, 12655237);
+    a("ellie", (Class)bV.class, bB.ELLIE.npcID, 1447446, 9961472);
+    a("slime", (Class)bY.class, bB.SLIME.npcID, 13167780, 8244330);
+    a("bia", (Class)bH.class, bB.BIA.npcID, 7488816, 7254603);
+    a("bee", (Class)bG.class, bB.BEE.npcID, 16701032, 4400155);
+    a("luna", (Class)bg.class, bB.LUNA.npcID, 7881787, 7940422);
+    a("allie", (Class)bW.class, bB.ALLIE.npcID);
+    a("kobold", (Class)b3.class, bB.KOBOLD.npcID);
+    a("kobold_egg", (Class)e.class, 4674237);
+    a("goblin", (Class)bf.class, bB.GOBLIN.npcID, 39424, 19456);
+    a("custom_model", (Class)cX.class, 6281823);
+    b("player_jenny", (Class)bi.class, bB.JENNY.playerID);
+    b("player_ellie", (Class)bb.class, bB.ELLIE.playerID);
+    b("player_slime", (Class)bK.class, bB.SLIME.playerID);
+    b("player_bia", (Class)b7.class, bB.BIA.playerID);
+    b("player_bee", (Class)bX.class, bB.BEE.playerID);
+    b("player_allie", (Class)bc.class, bB.ALLIE.playerID);
+    b("player_luna", (Class)b4.class, bB.LUNA.playerID);
+    b("player_kobold", (Class)b_.class, bB.KOBOLD.playerID);
+    b("player_goblin", (Class)be.class, bB.GOBLIN.playerID);
+    EntityRegistry.registerModEntity(new ResourceLocation("sexmod:friendly_slime"), cE.class, "friendly_slime", 5548484, Main.instance, 50, 1, true);
+    EntityRegistry.registerModEntity(new ResourceLocation("sexmod:luna_hook"), aY.class, "luna_hook", 4768742, Main.instance, 50, 1, true);
+    EntityRegistry.addSpawn(bY.class, 10, 1, 1, EnumCreatureType.CREATURE, new Biome[] { Biomes.field_76780_h, Biomes.field_150599_m });
+    EntityRegistry.addSpawn(bG.class, 5, 1, 1, EnumCreatureType.CREATURE, new Biome[] { Biomes.field_76767_f, Biomes.field_76785_t });
   }
   
-  public b5() {
-    this.a = false;
+  private static void b(String paramString, Class<? extends Entity> paramClass, int paramInt) {
+    EntityRegistry.registerModEntity(new ResourceLocation("sexmod:" + paramString), paramClass, paramString, paramInt, Main.instance, 100, 1, false);
   }
   
-  public void fromBytes(ByteBuf paramByteBuf) {
-    this.b = paramByteBuf.readBoolean();
-    this.a = true;
+  private static void a(String paramString, Class<? extends Entity> paramClass, int paramInt1, int paramInt2, int paramInt3) {
+    EntityRegistry.registerModEntity(new ResourceLocation("sexmod:" + paramString), paramClass, paramString, paramInt1, Main.instance, 50, 1, true, paramInt2, paramInt3);
   }
   
-  public void toBytes(ByteBuf paramByteBuf) {
-    paramByteBuf.writeBoolean(this.b);
-    this.a = true;
-  }
-  
-  public static class a implements IMessageHandler<b5, IMessage> {
-    public IMessage a(b5 param1b5, MessageContext param1MessageContext) {
-      try {
-        if (param1b5.a && param1MessageContext.side == Side.CLIENT) {
-          bf.a(param1b5.b);
-          try {
-            (Minecraft.func_71410_x()).field_71439_g.func_70016_h(0.0D, 0.0D, 0.0D);
-          } catch (Exception exception) {}
-          try {
-            if (param1b5.b)
-              aC.d(); 
-          } catch (Exception exception) {
-            throw a(null);
-          } 
-        } else {
-          System.out.println("received an invalid message @SetPlayerMovement :(");
-        } 
-      } catch (Exception exception) {
-        throw a(null);
-      } 
-      return null;
-    }
-    
-    private static Exception a(Exception param1Exception) {
-      return param1Exception;
-    }
+  private static void a(String paramString, Class<? extends Entity> paramClass, int paramInt) {
+    EntityRegistry.registerModEntity(new ResourceLocation("sexmod:" + paramString), paramClass, "allie", paramInt, Main.instance, 50, 1, true);
   }
 }
 
 
-/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.8.0.jar!\com\schnurritv\sexmod\b5.class
+/* Location:              C:\Users\Logan\Downloads\SchnurriTV's Sexmod-1.9.0.jar!\com\schnurritv\sexmod\b5.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       1.1.3
  */
